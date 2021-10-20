@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Deployer.Gui.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Deployer.Gui.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Deployer.Gui">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DockPanel Margin="9">
+                <TextBlock DockPanel.Dock="Top">1. Choose the target device:</TextBlock>
+
+                <ListBox Items="{Binding Devices}"
+                         SelectedItem="{Binding Device, Mode=TwoWay}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel ItemWidth="180" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Image Source="{Binding Icon}" VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Center" />
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" Margin="10"
+                                           Text="{Binding FriendlyName}" VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </DockPanel>
+            <DockPanel Grid.Row="1" Margin="9">
+                <TextBlock DockPanel.Dock="Top">2. Choose the type of deployment:</TextBlock>
+
+                <ComboBox VerticalAlignment="Center" Items="{Binding FilteredDeployments}"
+                          SelectedItem="{Binding Deployment, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Source="{Binding Icon}" VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right" />
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </DockPanel>
+        </Grid>
+    </Grid>
+
+</Window>
