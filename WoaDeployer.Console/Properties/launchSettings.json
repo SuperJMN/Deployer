@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "WoaDeployer.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "script run \"C:\\Users\\JMN\\Extended\\Fast\\Repos\\WOA-Project\\Deployment-Feed\\Devices\\Lumia\\950s\\Cityman\\Main.txt\" --set Disk=4 WimFileIndex=1 WimFilePath=L:\\sources\\install.wim DeploymentSize=16"
+    },
+    "csui": {
+      "commandName": "Executable",
+      "executablePath": "wt",
+      "commandLineArgs": "dotnet.exe run --project $(ProjectDir) script run \"C:\\Users\\JMN\\Extended\\Fast\\Repos\\WOA-Project\\Deployment-Feed\\Devices\\Lumia\\950s\\Cityman\\Main.txt\"",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
