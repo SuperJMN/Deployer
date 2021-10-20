@@ -17,4 +17,12 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.8" />
     <PackageReference Include="Octokit" Version="0.47.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Deployer.Library\Deployer.Library.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Deployments.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

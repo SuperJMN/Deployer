@@ -31,7 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zafiro", "Zafiro", "{A30883
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Tools.AzureDevOps", "Zafiro.Clients.AzureDevOps\Zafiro.Tools.AzureDevOps.csproj", "{61724E83-BFF6-40E5-ACBC-C0E50479D65D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deployer.Gui", "Deployer.Gui\Deployer.Gui.csproj", "{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Gui", "Deployer.Gui\Deployer.Gui.csproj", "{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deployer.Library", "Deployer.Library\Deployer.Library.csproj", "{6523E8B6-1444-4EAB-9055-B2CBF390A791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6523E8B6-1444-4EAB-9055-B2CBF390A791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6523E8B6-1444-4EAB-9055-B2CBF390A791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6523E8B6-1444-4EAB-9055-B2CBF390A791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6523E8B6-1444-4EAB-9055-B2CBF390A791}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

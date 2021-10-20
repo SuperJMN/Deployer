@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Deployer.Gui.ViewModels;
 using Deployer.Gui.Views;
+using Deployer.Library;
 
 namespace Deployer.Gui
 {
@@ -19,7 +20,7 @@ namespace Deployer.Gui
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainWindowViewModel(new XmlDeploymentReader())
                 };
             }
 
