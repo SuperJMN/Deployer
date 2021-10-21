@@ -1,4 +1,4 @@
-﻿namespace Deployer.Core.DeploymentLibrary
+﻿namespace Deployer.Library
 {
     public class Device
     {

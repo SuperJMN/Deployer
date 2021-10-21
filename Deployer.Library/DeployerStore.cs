@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Deployer.Core.DeploymentLibrary
+namespace Deployer.Library
 {
     public class DeployerStore 
     {

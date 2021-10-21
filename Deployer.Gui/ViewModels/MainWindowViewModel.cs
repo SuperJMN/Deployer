@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Reactive;
-using Deployer.Core.DeploymentLibrary;
 using Deployer.Library;
 using ReactiveUI;
 

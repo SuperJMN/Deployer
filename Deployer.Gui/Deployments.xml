@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<DeployerStore xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns="clr-namespace:Deployer.Core.DeploymentLibrary;assembly=Deployer.Core.DeploymentLibrary">
+<DeployerStore xmlns:exs="https://extendedxmlserializer.github.io/v2" xmlns:sys="https://extendedxmlserializer.github.io/system" xmlns="clr-namespace:Deployer.Library;assembly=Deployer.Library">
   <Devices exs:type="sys:List[Device]">
     <Capacity>4</Capacity>
     <Device Id="1">

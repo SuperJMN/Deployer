@@ -1,4 +1,3 @@
-using Deployer.Core.DeploymentLibrary;
 using ExtendedXmlSerializer;
 using ExtendedXmlSerializer.Configuration;
 
