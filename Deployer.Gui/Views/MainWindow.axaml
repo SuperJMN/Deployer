@@ -18,8 +18,8 @@
             <DockPanel Margin="9">
                 <TextBlock DockPanel.Dock="Top">1. Choose the target device:</TextBlock>
 
-                <ListBox Items="{Binding Devices}"
-                         SelectedItem="{Binding Device, Mode=TwoWay}"
+                <ListBox Items="{Binding DeployerStore.Devices}"
+                         SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -32,12 +32,16 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="80" />
                                     <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Image Source="{Binding Icon}" VerticalAlignment="Bottom"
                                        HorizontalAlignment="Center" />
                                 <TextBlock TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" Margin="10"
                                            Text="{Binding FriendlyName}" VerticalAlignment="Center"
                                            HorizontalAlignment="Center" />
+                                <DockPanel Grid.Row="2" Margin="9">
+                                    <TextBlock DockPanel.Dock="Top">2. Choose the type of deployment:</TextBlock>
+                                </DockPanel>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -47,8 +51,8 @@
             <DockPanel Grid.Row="1" Margin="9">
                 <TextBlock DockPanel.Dock="Top">2. Choose the type of deployment:</TextBlock>
 
-                <ComboBox VerticalAlignment="Center" Items="{Binding FilteredDeployments}"
-                          SelectedItem="{Binding Deployment, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+                <ComboBox VerticalAlignment="Center" Items="{Binding SelectedDevice.Deployments}"
+                          SelectedItem="{Binding SelectedDeployment, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
 
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -60,14 +64,14 @@
                                 <Image
                                     Source="{Binding Icon}" VerticalAlignment="Bottom"
                                     HorizontalAlignment="Right" />
-                                <TextBlock Grid.Column="1" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding Description}" VerticalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
             </DockPanel>
-
+            
             <Button Command="{Binding Fetch}" Grid.Row="2">Fetch</Button>
         </Grid>
     </Grid>

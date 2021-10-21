@@ -20,7 +20,7 @@ namespace Deployer.Gui
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(new XmlDeploymentReader())
+                    DataContext = new MainWindowViewModel(new XmlDeploymentStore())
                 };
             }
 

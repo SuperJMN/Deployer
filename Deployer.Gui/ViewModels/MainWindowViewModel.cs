@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Reactive;
 using Deployer.Library;
@@ -8,22 +7,32 @@ namespace Deployer.Gui.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly Func<XmlDeploymentReader> func;
+        private readonly ObservableAsPropertyHelper<DeployerStore> deployerStore;
+        private Deployment selectedDeployment;
+        private Device selectedDevice;
 
-        public MainWindowViewModel(IDeployementReader deploymentReader)
+        public MainWindowViewModel(IDeployementSerializer deploymentSerializer)
         {
-            Fetch = ReactiveCommand.Create(() => deploymentReader.Read(File.ReadAllText("Deployments.xml")));
-            Fetch.Subscribe(store => { });
+            Fetch = ReactiveCommand.Create(() => deploymentSerializer.Deserialize(File.ReadAllText("Store.xml")));
+            deployerStore = Fetch.ToProperty(this, m => m.DeployerStore);
         }
+
+        public DeployerStore DeployerStore => deployerStore.Value;
 
         public ReactiveCommand<Unit, DeployerStore> Fetch { get; }
 
         public string Greeting => "Welcome to Avalonia!";
 
-        public Deployment Deployment { get; set; }
-    }
+        public Device SelectedDevice
+        {
+            get => selectedDevice;
+            set => this.RaiseAndSetIfChanged(ref selectedDevice, value);
+        }
 
-    public class Deployment
-    {
+        public Deployment SelectedDeployment
+        {
+            get => selectedDeployment;
+            set => this.RaiseAndSetIfChanged(ref selectedDeployment, value);
+        }
     }
 }

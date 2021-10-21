@@ -1,35 +1,34 @@
+using System.Xml;
 using ExtendedXmlSerializer;
 using ExtendedXmlSerializer.Configuration;
 
 namespace Deployer.Library
 {
-    public class XmlDeploymentReader : IDeployementReader
+    public class XmlDeploymentStore : IDeployementSerializer
     {
-        private readonly string xmlString;
         private readonly IExtendedXmlSerializer serializer;
-        private readonly DeployerStore story;
 
-
-        public XmlDeploymentReader()
+        public XmlDeploymentStore()
         {
             serializer = CreateSerializer();
         }
 
-        public DeployerStore Read(string xmlString)
+        public DeployerStore Deserialize(string xmlString)
         {
             return serializer.Deserialize<DeployerStore>(xmlString);
         }
 
-        public string Write(DeployerStore store)
+        public string Serialize(DeployerStore store)
         {
-            return serializer.Serialize(store);
+            return serializer.Serialize(new XmlWriterSettings
+            {
+                Indent = true
+            }, store);
         }
 
         private static IExtendedXmlSerializer CreateSerializer()
         {
             return new ConfigurationContainer()
-                .Type<Device>().EnableReferences(x => x.Id)
-                .Type<Deployment>().Member(x => x.Id).Attribute()
                 .UseOptimizedNamespaces()
                 .Create();
         }

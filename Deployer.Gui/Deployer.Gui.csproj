@@ -22,7 +22,7 @@
     <ProjectReference Include="..\Deployer.Library\Deployer.Library.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Deployments.xml">
+    <None Update="Store.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
