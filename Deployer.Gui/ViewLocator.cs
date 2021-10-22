@@ -1,7 +1,7 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Deployer.Gui.ViewModels;
-using System;
 
 namespace Deployer.Gui
 {

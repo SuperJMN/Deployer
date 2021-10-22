@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reactive;
 using Deployer.Library;
 using ReactiveUI;
@@ -7,32 +10,33 @@ namespace Deployer.Gui.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly ObservableAsPropertyHelper<DeployerStore> deployerStore;
-        private Deployment selectedDeployment;
-        private Device selectedDevice;
+        private DeviceViewModel selectedDevice;
+        private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
 
         public MainWindowViewModel(IDeployementSerializer deploymentSerializer)
         {
-            Fetch = ReactiveCommand.Create(() => deploymentSerializer.Deserialize(File.ReadAllText("Store.xml")));
-            deployerStore = Fetch.ToProperty(this, m => m.DeployerStore);
+            Fetch = ReactiveCommand.Create(() =>
+            {
+                return deploymentSerializer
+                    .Deserialize(File.ReadAllText("Store.xml"))
+                    .Devices
+                    .Select(device => new DeviceViewModel(device))
+                    .ToList();
+            });
+
+            devices = Fetch.ToProperty(this, x => x.Devices);
+
+            Fetch.Execute().Subscribe();
         }
 
-        public DeployerStore DeployerStore => deployerStore.Value;
+        public List<DeviceViewModel> Devices => devices.Value;
 
-        public ReactiveCommand<Unit, DeployerStore> Fetch { get; }
+        public ReactiveCommand<Unit, List<DeviceViewModel>> Fetch { get; }
 
-        public string Greeting => "Welcome to Avalonia!";
-
-        public Device SelectedDevice
+        public DeviceViewModel SelectedDevice
         {
             get => selectedDevice;
             set => this.RaiseAndSetIfChanged(ref selectedDevice, value);
-        }
-
-        public Deployment SelectedDeployment
-        {
-            get => selectedDeployment;
-            set => this.RaiseAndSetIfChanged(ref selectedDeployment, value);
         }
     }
 }

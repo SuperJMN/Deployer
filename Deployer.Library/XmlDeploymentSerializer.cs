@@ -4,11 +4,11 @@ using ExtendedXmlSerializer.Configuration;
 
 namespace Deployer.Library
 {
-    public class XmlDeploymentStore : IDeployementSerializer
+    public class XmlDeploymentSerializer : IDeployementSerializer
     {
         private readonly IExtendedXmlSerializer serializer;
 
-        public XmlDeploymentStore()
+        public XmlDeploymentSerializer()
         {
             serializer = CreateSerializer();
         }
