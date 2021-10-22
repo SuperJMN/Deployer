@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
-using Deployer.Functions.Core;
-using Iridio.Common;
 using Iridio.Runtime;
 using MoreLinq;
 using Serilog;
@@ -15,19 +13,15 @@ using Spectre.Console;
 
 namespace Deployer.Console
 {
-    public class DeployerConsole
+    public class DeployerSession
     {
         private readonly IDeployer deployer;
         private readonly IFileSystem fileSystem;
-        private readonly IExecutionContext executionContext;
-        private readonly IEnumerable<IFunction> functions;
 
-        public DeployerConsole(IDeployer deployer, IFileSystem fileSystem, IExecutionContext executionContext, IEnumerable<IFunction> functions)
+        public DeployerSession(IDeployer deployer, IFileSystem fileSystem)
         {
             this.deployer = deployer;
             this.fileSystem = fileSystem;
-            this.executionContext = executionContext;
-            this.functions = functions;
         }
 
         public async Task<int> Run(string[] args)
@@ -96,7 +90,7 @@ namespace Deployer.Console
                     new SpinnerColumn(Spinner.Known.BouncingBall))
                 .StartAsync(async ctx =>
                 {
-                    using var progressUpdater = new ProgressUpdater(deployer, executionContext, ctx);
+                    using var progressUpdater = new ProgressUpdater(deployer, ctx);
                     return await deployer
                         .Run(script.FullName, initialState)
                         .Tap(() => AnsiConsole.MarkupLine("[bold green]Success![/]"))
@@ -144,39 +138,41 @@ namespace Deployer.Console
 
         private Command ListCommand()
         {
-            var funcsCommand = new Command("functions")
-            {
-                Handler = CommandHandler.Create(() =>
-                {
-                    var table = new Table();
+            return new Command("fake");
 
-                    table.RoundedBorder();
+            //var funcsCommand = new Command("functions")
+            //{
+            //    Handler = CommandHandler.Create(() =>
+            //    {
+            //        var table = new Table();
+
+            //        table.RoundedBorder();
 
 
-                    table.AddColumn(new TableColumn("Type").Centered());
-                    table.AddColumn(new TableColumn("Name"));
-                    table.AddColumn(new TableColumn("Parameters"));
-                    foreach (var func in functions.OrderBy(f => f.Name))
-                    {
-                        var inner = new Table();
-                        inner.AddColumn(new TableColumn("Type").Centered());
-                        inner.AddColumn(new TableColumn("Name"));
+            //        table.AddColumn(new TableColumn("Type").Centered());
+            //        table.AddColumn(new TableColumn("Name"));
+            //        table.AddColumn(new TableColumn("Parameters"));
+            //        foreach (var func in functions.OrderBy(f => f.Name))
+            //        {
+            //            var inner = new Table();
+            //            inner.AddColumn(new TableColumn("Type").Centered());
+            //            inner.AddColumn(new TableColumn("Name"));
 
-                        foreach (var p in func.Parameters)
-                        {
-                            inner.AddRow(new Markup(p.Type.Name), new Markup(p.Name));
-                        }
+            //            foreach (var p in func.Parameters)
+            //            {
+            //                inner.AddRow(new Markup(p.Type.Name), new Markup(p.Name));
+            //            }
 
-                        table.AddRow(new Markup(func.ReturnType.Name), new Markup(func.Name), inner);
-                    }
+            //            table.AddRow(new Markup(func.ReturnType.Name), new Markup(func.Name), inner);
+            //        }
 
-                    AnsiConsole.Write(table);
-                })
-            };
+            //        AnsiConsole.Write(table);
+            //    })
+            //};
 
-            var command = new Command("list");
-            command.AddCommand(funcsCommand);
-            return command;
+            //var command = new Command("list");
+            //command.AddCommand(funcsCommand);
+            //return command;
         }
 
         private static void Beautify(IridioError error)

@@ -12,10 +12,10 @@ namespace Deployer.Functions.Core
 {
     public class PluginFunctionStore : IFunctionStore
     {
-        private readonly IExecutionContext executionContext;
+        private readonly ExecutionContext executionContext;
         private readonly string pluginLocation;
 
-        public PluginFunctionStore(string pluginLocation, IExecutionContext executionContext)
+        public PluginFunctionStore(string pluginLocation, ExecutionContext executionContext)
         {
             this.executionContext = executionContext;
             this.pluginLocation = pluginLocation;
@@ -34,7 +34,7 @@ namespace Deployer.Functions.Core
 
                 RegisterDependencies(assembly, builder);
 
-                builder.RegisterInstance(executionContext).As<IExecutionContext>();
+                builder.RegisterInstance(executionContext).As<ExecutionContext>();
 
                 pluginTypes.ForEach(t => builder.RegisterType(t));
 

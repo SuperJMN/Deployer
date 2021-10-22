@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Deployer.Console.Core\Deployer.Console.Core.csproj" />
     <ProjectReference Include="..\Deployer\Deployer.csproj" />
     <ProjectReference Include="..\WoaDeployer.Console\Deployer.Console.csproj" />
   </ItemGroup>

@@ -16,9 +16,9 @@ namespace Deployer.Functions.Unzip.Core
         private readonly IDownloader downloader;
         protected readonly IOperationProgress Progress;
         private readonly IFileSystem fileSystem;
-        private readonly IExecutionContext executionContext;
+        private readonly ExecutionContext executionContext;
 
-        public UnzipBase(IZipExtractor extractor, IDownloader downloader, IFileSystem fileSystem, IExecutionContext executionContext)
+        public UnzipBase(IZipExtractor extractor, IDownloader downloader, IFileSystem fileSystem, ExecutionContext executionContext)
         {
             Extractor = extractor;
             this.downloader = downloader;

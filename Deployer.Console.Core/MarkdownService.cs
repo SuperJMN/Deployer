@@ -1,8 +1,9 @@
 ﻿using System.IO.Abstractions;
 using System.Threading.Tasks;
+using Deployer.Functions.Services;
 using Spectre.Console;
 
-namespace Deployer.Functions.Services
+namespace Deployer.Console.Core
 {
     public class MarkdownService : IMarkdownService
     {

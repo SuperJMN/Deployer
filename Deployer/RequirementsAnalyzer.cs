@@ -31,7 +31,7 @@ namespace Deployer
             switch (parsed[0].ToLower())
             {
                 case "int":
-                    return new IntRequirement(name, description);
+                    return new IntRequirement(name);
                 case "double":
                     return new DoubleRequirement(name, double.Parse(parsed[1]), double.Parse(parsed[2]), double.Parse(parsed[3]));
                 case "wimfile":

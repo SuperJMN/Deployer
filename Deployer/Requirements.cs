@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Deployer.Console
+namespace Deployer
 {
     public static class Requirements
     {

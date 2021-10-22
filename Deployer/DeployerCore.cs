@@ -9,7 +9,7 @@ using IFileSystem = System.IO.Abstractions.IFileSystem;
 
 namespace Deployer
 {
-    public class DeployerCore : IDeployer
+    public class DeployerCore
     {
         private readonly ISourceCodeCompiler compiler;
         private readonly IInterpreter interpreter;

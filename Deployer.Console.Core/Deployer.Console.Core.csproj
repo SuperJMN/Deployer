@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>Exe</OutputType>
 		<TargetFramework>net5.0</TargetFramework>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,23 +11,16 @@
 		<PackageReference Include="Serilog.Sinks.SpectreConsole" Version="0.1.1" />
 		<PackageReference Include="Spectre.Console" Version="0.42.0" />
 		<PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
+		<PackageReference Include="Zafiro.Network" Version="2.4.17" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Deployer.Avalonia\Deployer.Avalonia.csproj" />
-		<ProjectReference Include="..\Deployer.Console.Core\Deployer.Console.Core.csproj" />
-		<ProjectReference Include="..\Deployer.Functions\Deployer.Functions.csproj" />
-		<ProjectReference Include="..\Deployer\Deployer.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="Sample.txt">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Core\" />
+	  <ProjectReference Include="..\Deployer.Dism\Zafiro.System.Windows.Dism.csproj" />
+	  <ProjectReference Include="..\Deployer.Functions\Deployer.Functions.csproj" />
+	  <ProjectReference Include="..\Deployer.Zip\Deployer.Compression.csproj" />
+	  <ProjectReference Include="..\Deployer\Deployer.csproj" />
+	  <ProjectReference Include="..\Zafiro.Storage.Implementation\Zafiro.Storage.Windows.csproj" />
+	  <ProjectReference Include="..\Zafiro.System.Windows\Zafiro.System.Windows.csproj" />
 	</ItemGroup>
 
 </Project>
