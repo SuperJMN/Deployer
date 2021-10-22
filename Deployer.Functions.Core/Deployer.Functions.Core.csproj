@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="CSharpFunctionalExtensions" Version="2.23.0" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.24.0" />
     <PackageReference Include="Iridio" Version="2.1.27" />
   </ItemGroup>
 

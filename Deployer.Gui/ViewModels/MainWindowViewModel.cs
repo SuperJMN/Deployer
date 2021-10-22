@@ -13,7 +13,7 @@ namespace Deployer.Gui.ViewModels
         private DeviceViewModel selectedDevice;
         private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
 
-        public MainWindowViewModel(IDeployementSerializer deploymentSerializer)
+        public MainWindowViewModel(IDeployementSerializer deploymentSerializer, IDeployer deployer)
         {
             Fetch = ReactiveCommand.Create(() =>
             {

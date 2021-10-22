@@ -1,9 +1,10 @@
-using Autofac;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Deployer.Avalonia;
 using Deployer.Gui.ViewModels;
 using Deployer.Gui.Views;
+using Deployer.Library;
 
 namespace Deployer.Gui
 {
@@ -20,7 +21,7 @@ namespace Deployer.Gui
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = Composition.CreateContainer().Resolve<MainWindowViewModel>()
+                    DataContext = new MainWindowViewModel(new XmlDeploymentSerializer(), new DeployerAvalonia())
                 };
             }
 
