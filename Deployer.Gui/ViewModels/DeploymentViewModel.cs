@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reactive;
 using CSharpFunctionalExtensions;
@@ -15,7 +16,14 @@ namespace Deployer.Gui.ViewModels
         {
             this.deployment = deployment;
             Deploy = ReactiveCommand.CreateFromTask(() =>
-                deployer.Run("Deployment-Feed\\" + deployment.ScriptPath, new Dictionary<string, object>()));
+                deployer.Run("Deployment-Feed\\" + deployment.ScriptPath, new Dictionary<string, object>
+                {
+                    ["Disk"] = 4,
+                    ["DeploymentSize"] = 16D,
+                    ["WimFileIndex"] = 1,
+                    ["WimFilePath"] = "fake"
+                }));
+            Deploy.Subscribe(r => { });
         }
 
         public ReactiveCommand<Unit, Result<ExecutionSummary, IridioError>> Deploy { get; set; }
