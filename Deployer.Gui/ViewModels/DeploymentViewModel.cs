@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using System.Reactive;
+using CSharpFunctionalExtensions;
 using Deployer.Library;
+using Iridio.Runtime;
 using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels
@@ -8,13 +11,14 @@ namespace Deployer.Gui.ViewModels
     {
         private readonly Deployment deployment;
 
-        public DeploymentViewModel(Deployment deployment)
+        public DeploymentViewModel(Deployment deployment, IDeployer deployer)
         {
             this.deployment = deployment;
-            Deploy = ReactiveCommand.CreateFromTask(async () => { });
+            Deploy = ReactiveCommand.CreateFromTask(() =>
+                deployer.Run("Deployment-Feed\\" + deployment.ScriptPath, new Dictionary<string, object>()));
         }
 
-        public ReactiveCommand<Unit, Unit> Deploy { get; set; }
+        public ReactiveCommand<Unit, Result<ExecutionSummary, IridioError>> Deploy { get; set; }
 
         public string Description => deployment.Description;
         public string Icon => deployment.Icon;

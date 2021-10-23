@@ -28,7 +28,7 @@ namespace Deployer
         {
             using (new DirectorySwitch(fileFileSystem, fileFileSystem.Path.GetDirectoryName(path)))
             {
-                return await BuildCore(path).Bind(artifact => RunArtifact(artifact, initialState));
+                return await BuildCore(fileFileSystem.Path.GetFileName(path)).Bind(artifact => RunArtifact(artifact, initialState));
             }
         }
 

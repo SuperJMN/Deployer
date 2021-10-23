@@ -20,7 +20,7 @@ namespace Deployer.Gui.ViewModels
                 return deploymentSerializer
                     .Deserialize(File.ReadAllText("Store.xml"))
                     .Devices
-                    .Select(device => new DeviceViewModel(device))
+                    .Select(device => new DeviceViewModel(device, deployer))
                     .ToList();
             });
 

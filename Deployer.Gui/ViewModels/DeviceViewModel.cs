@@ -10,10 +10,10 @@ namespace Deployer.Gui.ViewModels
         private readonly Device device;
         private DeploymentViewModel selectedDeployment;
 
-        public DeviceViewModel(Device device)
+        public DeviceViewModel(Device device, IDeployer deployer)
         {
             this.device = device;
-            Deployments = device.Deployments.Select(deployment => new DeploymentViewModel(deployment)).ToList();
+            Deployments = device.Deployments.Select(deployment => new DeploymentViewModel(deployment, deployer)).ToList();
         }
 
         public DeploymentViewModel SelectedDeployment
