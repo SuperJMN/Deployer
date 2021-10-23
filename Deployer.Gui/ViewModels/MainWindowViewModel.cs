@@ -12,6 +12,7 @@ namespace Deployer.Gui.ViewModels
     {
         private DeviceViewModel selectedDevice;
         private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
+        private string statusMessage;
 
         public MainWindowViewModel(IDeployementSerializer deploymentSerializer, IDeployer deployer)
         {
@@ -27,6 +28,7 @@ namespace Deployer.Gui.ViewModels
             devices = Fetch.ToProperty(this, x => x.Devices);
 
             Fetch.Execute().Subscribe();
+            MessageBus.Current.Listen<StatusMessage>().Subscribe(m => StatusMessage = m.Content);
         }
 
         public List<DeviceViewModel> Devices => devices.Value;
@@ -37,6 +39,12 @@ namespace Deployer.Gui.ViewModels
         {
             get => selectedDevice;
             set => this.RaiseAndSetIfChanged(ref selectedDevice, value);
+        }
+
+        public string StatusMessage
+        {
+            get => statusMessage;
+            private set => this.RaiseAndSetIfChanged(ref statusMessage, value);
         }
     }
 }

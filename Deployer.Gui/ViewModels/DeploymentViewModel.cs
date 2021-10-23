@@ -23,7 +23,10 @@ namespace Deployer.Gui.ViewModels
                     ["WimFileIndex"] = 1,
                     ["WimFilePath"] = "fake"
                 }));
-            Deploy.Subscribe(r => { });
+            Deploy.Subscribe(result =>
+            {
+                MessageBus.Current.SendMessage(new StatusMessage(result.Match(a => "Success", e => string.Join(";", e.Errors))));
+            });
         }
 
         public ReactiveCommand<Unit, Result<ExecutionSummary, IridioError>> Deploy { get; set; }

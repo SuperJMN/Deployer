@@ -25,5 +25,7 @@ namespace Deployer.Gui
             get => selectedDevice;
             set => this.RaiseAndSetIfChanged(ref selectedDevice, value);
         }
+
+        public string StatusMessage => "Saludos";
     }
 }
