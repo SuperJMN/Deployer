@@ -16,15 +16,19 @@ namespace Deployer.Gui.ViewModels
         {
             this.deployment = deployment;
             Deploy = ReactiveCommand.CreateFromTask(() =>
-                deployer.Run("Deployment-Feed\\" + deployment.ScriptPath, new Dictionary<string, object>
+            {
+                MessageBus.Current.SendMessage(new DeploymentStart());
+                return deployer.Run("Deployment-Feed\\" + deployment.ScriptPath, new Dictionary<string, object>
                 {
                     ["Disk"] = 4,
                     ["DeploymentSize"] = 16D,
                     ["WimFileIndex"] = 1,
-                    ["WimFilePath"] = "fake"
-                }));
+                    ["WimFilePath"] = "L:\\sources\\install.wim"
+                });
+            });
             Deploy.Subscribe(result =>
             {
+                MessageBus.Current.SendMessage(new DeploymentFinished());
                 MessageBus.Current.SendMessage(new StatusMessage(result.Match(a => "Success", e => string.Join(";", e.Errors))));
             });
         }
@@ -34,5 +38,13 @@ namespace Deployer.Gui.ViewModels
         public string Description => deployment.Description;
         public string Icon => deployment.Icon;
         public string Title => deployment.Title;
+    }
+
+    public class DeploymentStart
+    {
+    }
+
+    public class DeploymentFinished
+    {
     }
 }

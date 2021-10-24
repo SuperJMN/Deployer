@@ -14,7 +14,7 @@ namespace Deployer.Gui
         {
             Devices = DefaultStore.Create()
                 .Devices
-                .Select(device => new DeviceViewModel(device, null))
+                .Select(device => new DeviceViewModel(device, new NullDeployer()))
                 .ToList();
         }
 
@@ -27,5 +27,9 @@ namespace Deployer.Gui
         }
 
         public string StatusMessage => "Saludos";
+
+        public bool IsBusy => true;
+
+        public OperationStatusViewModelDesign OperationStatus => new();
     }
 }

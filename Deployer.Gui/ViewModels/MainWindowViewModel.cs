@@ -10,12 +10,15 @@ namespace Deployer.Gui.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public OperationStatusViewModel OperationStatus { get; }
         private DeviceViewModel selectedDevice;
         private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
         private string statusMessage;
+        private bool isBusy;
 
-        public MainWindowViewModel(IDeployementSerializer deploymentSerializer, IDeployer deployer)
+        public MainWindowViewModel(IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer)
         {
+            OperationStatus = operationStatus;
             Fetch = ReactiveCommand.Create(() =>
             {
                 return deploymentSerializer
@@ -29,6 +32,14 @@ namespace Deployer.Gui.ViewModels
 
             Fetch.Execute().Subscribe();
             MessageBus.Current.Listen<StatusMessage>().Subscribe(m => StatusMessage = m.Content);
+            MessageBus.Current.Listen<DeploymentStart>().Subscribe(m => IsBusy = true);
+            MessageBus.Current.Listen<DeploymentFinished>().Subscribe(m => IsBusy = false);
+        }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            private set => this.RaiseAndSetIfChanged(ref isBusy, value);
         }
 
         public List<DeviceViewModel> Devices => devices.Value;

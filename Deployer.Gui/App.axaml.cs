@@ -19,9 +19,12 @@ namespace Deployer.Gui
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                var deployerAvalonia = new DeployerAvalonia();
+                var mainWindowViewModel = new MainWindowViewModel(new XmlDeploymentSerializer(), new OperationStatusViewModel(deployerAvalonia),
+                    deployerAvalonia);
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(new XmlDeploymentSerializer(), new DeployerAvalonia())
+                    DataContext = mainWindowViewModel
                 };
             }
 
