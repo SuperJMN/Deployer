@@ -54,7 +54,7 @@ namespace Zafiro.Storage.Windows
 
         public async Task<IList<IPartition>> GetPartitions()
         {
-            var results = await PowerShellMixin.ExecuteScript($"Get-Partition -DiskNumber {Number}");
+            var results = await PowerShellFacade.ExecuteScript($"Get-Partition -DiskNumber {Number}");
 
             var fromWmi = GetWmiPartitions(results);
 
@@ -147,21 +147,21 @@ namespace Zafiro.Storage.Windows
 
         public async Task Refresh()
         {
-            await PowerShellMixin.ExecuteScript(@"Update-HostStorageCache");
+            await PowerShellFacade.ExecuteScript(@"Update-HostStorageCache");
         }
 
         public async Task SetGuid(Guid guid)
         {
             Log.Verbose("Changing disk Guid {Guid} to {Disk}", guid, this);
             var cmd = $@"Set-Disk -Number {Number} -Guid ""{{{guid}}}""";
-            await PowerShellMixin.ExecuteScript(cmd);
+            await PowerShellFacade.ExecuteScript(cmd);
 
             Log.Verbose("Disk Guid changed", guid, this);
         }
 
         public async Task ToggleOnline(bool isOnline)
         {
-            await PowerShellMixin.ExecuteCommand("Set-Disk",
+            await PowerShellFacade.ExecuteCommand("Set-Disk",
                 ("Number", Number),
                 ("IsOffline", !isOnline));
         }
@@ -169,14 +169,14 @@ namespace Zafiro.Storage.Windows
         public async Task PrepareForRemoval()
         {
             var script = $"SELECT DISK {Number}\nOFFLINE DISK\nONLINE DISK";
-            await PowerShellMixin.ExecuteScript($@"""{script}"" | & diskpart.exe");
+            await PowerShellFacade.ExecuteScript($@"""{script}"" | & diskpart.exe");
         }
 
         public async Task ClearAs(DiskType diskType)
         {
             if (!PartitionStyle.Equals(DiskType.Raw))
             {
-                await PowerShellMixin
+                await PowerShellFacade
                     .ExecuteCommand("Clear-Disk",
                         ("RemoveData", null),
                         ("RemoveOEM", null),
@@ -184,7 +184,7 @@ namespace Zafiro.Storage.Windows
                         ("Number", Number));
             }
 
-            await PowerShellMixin
+            await PowerShellFacade
                 .ExecuteCommand("Initialize-Disk",
                     ("PartitionStyle", diskType.Name.ToUpper()),
                     ("Number", Number));
@@ -216,7 +216,7 @@ namespace Zafiro.Storage.Windows
         public async Task<IPartition> CreateMbrPartition(MbrType mbrType, ByteSize size = default)
         {
             var sizeStr = size == default ? "-UseMaximumSize" : $"-Size {size}";
-            await PowerShellMixin.ExecuteScript($"New-Partition -DiskNumber {Number} {sizeStr} -MbrType {mbrType.Name}");
+            await PowerShellFacade.ExecuteScript($"New-Partition -DiskNumber {Number} {sizeStr} -MbrType {mbrType.Name}");
 
             var partitions = await GetPartitions();
             return partitions.Last();

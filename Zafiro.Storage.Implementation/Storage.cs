@@ -11,9 +11,7 @@ namespace Zafiro.Storage.Windows
     {
         public async Task<Result<IDisk>> GetDisk(int n)
         {
-            var ps = PowerShell.Create();
-            ps.AddScript($"Get-Disk {n}");
-            var results = await ps.InvokeAsync();
+            var results = await PowerShellFacade.ExecuteScript($"Get-Disk {n}");
 
             var disks = results
                 .Select(x => x.ImmediateBaseObject)
@@ -24,7 +22,7 @@ namespace Zafiro.Storage.Windows
 
         public async Task<IList<IDisk>> GetDisks()
         {
-            var results = await PowerShellMixin.ExecuteScript("Get-Disk");
+            var results = await PowerShellFacade.ExecuteScript("Get-Disk");
 
             var disks = results
                 .Select(x => x.ImmediateBaseObject)

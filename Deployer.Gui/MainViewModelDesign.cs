@@ -14,7 +14,7 @@ namespace Deployer.Gui
         {
             Devices = DefaultStore.Create()
                 .Devices
-                .Select(device => new DeviceViewModel(device, new NullDeployer()))
+                .Select(device => new DeviceViewModel(device, new NullDeployer(), null))
                 .ToList();
         }
 

@@ -6,14 +6,27 @@ using System.Threading.Tasks;
 
 namespace Zafiro.Storage.Windows
 {
-    public static class PowerShellMixin
+    public static class PowerShellFacade
     {
+        private static bool isExecutionPolicySet;
+
         private static async Task<PSDataCollection<PSObject>> Run(Func<PowerShell, Task<PSDataCollection<PSObject>>> task)
         {
-            using (var ps = PowerShell.Create())
+            using var ps = PowerShell.Create();
+            SetExecutionPolicy(ps);
+            return await task(ps);
+        }
+
+        private static void SetExecutionPolicy(PowerShell powerShell)
+        {
+            if (isExecutionPolicySet)
             {
-                return await task(ps);
+                return;
             }
+
+            powerShell.AddScript("Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process");
+            powerShell.Invoke();
+            isExecutionPolicySet = true;
         }
 
         public static async Task<PSDataCollection<PSObject>> ExecuteScript(string script)

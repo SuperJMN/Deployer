@@ -1,3 +1,4 @@
+using System.IO.Abstractions;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -21,7 +22,7 @@ namespace Deployer.Gui
             {
                 var deployerAvalonia = new DeployerAvalonia();
                 var mainWindowViewModel = new MainWindowViewModel(new XmlDeploymentSerializer(), new OperationStatusViewModel(deployerAvalonia),
-                    deployerAvalonia);
+                    deployerAvalonia, new FileSystem());
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = mainWindowViewModel

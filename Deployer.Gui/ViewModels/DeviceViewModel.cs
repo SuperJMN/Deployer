@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO.Abstractions;
 using System.Linq;
 using Deployer.Library;
 using ReactiveUI;
@@ -10,10 +11,10 @@ namespace Deployer.Gui.ViewModels
         private readonly Device device;
         private DeploymentViewModel selectedDeployment;
 
-        public DeviceViewModel(Device device, IDeployer deployer)
+        public DeviceViewModel(Device device, IDeployer deployer, IFileSystem fileSystem)
         {
             this.device = device;
-            Deployments = device.Deployments.Select(deployment => new DeploymentViewModel(deployment, deployer)).ToList();
+            Deployments = device.Deployments.Select(deployment => new DeploymentViewModel(deployment, deployer, fileSystem)).ToList();
         }
 
         public DeploymentViewModel SelectedDeployment

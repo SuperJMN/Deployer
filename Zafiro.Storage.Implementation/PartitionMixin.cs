@@ -31,7 +31,7 @@ namespace Zafiro.Storage.Windows
 
         public static async Task<PSObject> GetPsPartition(this IPartition partition)
         {
-            var psDataCollection = await PowerShellMixin.ExecuteScript($"Get-Partition -DiskNumber {partition.Disk.Number} -Number {partition.Number}");
+            var psDataCollection = await PowerShellFacade.ExecuteScript($"Get-Partition -DiskNumber {partition.Disk.Number} -Number {partition.Number}");
             var psPartition = psDataCollection.FirstOrDefault();
 
             if (psPartition == null)
