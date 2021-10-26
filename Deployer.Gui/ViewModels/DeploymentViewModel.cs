@@ -37,7 +37,7 @@ namespace Deployer.Gui.ViewModels
             return (await initialState.Bind(async state =>
             {
                 var result = await deployer.Run(deploymentScriptPath, state);
-                var match = result.Match(s => Result.Success(), d => Result.Failure("Sucked badly"));
+                var match = result.Match(s => Result.Success(), d => Result.Failure(d.ToString()));
                 return match;
             })).Match(() => "Success!", err => err);
         }

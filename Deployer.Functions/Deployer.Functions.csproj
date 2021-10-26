@@ -17,7 +17,7 @@
 		<PackageReference Include="Spectre.Console" Version="0.42.0" />
 		<PackageReference Include="Zafiro.Network" Version="2.4.17" />
 		<PackageReference Include="Zafiro.Reflection" Version="2.4.17" />
-		<PackageReference Include="Iridio" Version="2.1.27" />
+		<PackageReference Include="Iridio" Version="2.1.28" />
 	</ItemGroup>
 
 	<ItemGroup>

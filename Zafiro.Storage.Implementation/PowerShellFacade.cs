@@ -1,53 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
+using System.Management.Automation.Runspaces;
 using System.Threading.Tasks;
+using CSharpFunctionalExtensions;
+using Microsoft.PowerShell;
 
 namespace Zafiro.Storage.Windows
 {
     public static class PowerShellFacade
     {
         private static bool isExecutionPolicySet;
+        private static RunspaceMode runSpace;
 
         private static async Task<PSDataCollection<PSObject>> Run(Func<PowerShell, Task<PSDataCollection<PSObject>>> task)
         {
-            using var ps = PowerShell.Create();
-            SetExecutionPolicy(ps);
+            using var ps = CreatePowerShell();
             return await task(ps);
         }
 
-        private static void SetExecutionPolicy(PowerShell powerShell)
+        private static PowerShell CreatePowerShell()
         {
-            if (isExecutionPolicySet)
+            var initialSessionState = InitialSessionState.CreateDefault();
+            initialSessionState.ExecutionPolicy = ExecutionPolicy.Bypass;
+            using var runspace = RunspaceFactory.CreateRunspace(initialSessionState);
+            runspace.Open();
+            var powerShell = PowerShell.Create();
+            powerShell.Runspace = runspace;
+            return powerShell;
+        }
+
+        public static async Task<Result<PSDataCollection<PSObject>>> WithinPowershell(Action<PowerShell> func)
+        {
+            var initialSessionState = InitialSessionState.CreateDefault();
+            initialSessionState.ExecutionPolicy = ExecutionPolicy.Bypass;
+            using var runspace = RunspaceFactory.CreateRunspace(initialSessionState);
+            runspace.Open();
+            using var powerShell = PowerShell.Create();
+            powerShell.Runspace = runspace;
+
+            func(powerShell);
+            var results = await powerShell.InvokeAsync();
+            if (powerShell.HadErrors)
             {
-                return;
+                return Result.Failure<PSDataCollection<PSObject>>(string.Join(", ", powerShell.Streams.Error));
             }
 
-            powerShell.AddScript("Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process");
-            powerShell.Invoke();
-            isExecutionPolicySet = true;
+            return results;
         }
 
         public static async Task<PSDataCollection<PSObject>> ExecuteScript(string script)
         {
-            return await Run(async ps =>
+            var execution = await WithinPowershell(shell => shell.AddScript(script));
+
+            if (execution.IsFailure)
             {
-                ps.AddScript(script, true);
-                var results = await Task.Factory.FromAsync(ps.BeginInvoke(), ps.EndInvoke);
-
-                if (ps.HadErrors)
-                {
-                    throw new ApplicationException($"The execution of the script '{script}' failed: {string.Join(", ", ps.Streams.Error)}");
-                }
-
-                return results;
-            });
+                throw new ApplicationException($"The execution of the script '{script}' failed: {string.Join(", ", execution.Error)}");
+            }
+            
+            return execution.Value;
         }
 
         public static async Task<PSDataCollection<PSObject>> ExecuteCommand(string commandText, params (string, object)[] parameters)
         {
-            return await Run(async ps =>
+            var execution = await WithinPowershell(ps =>
             {
                 var command = ps.AddCommand(commandText);
 
@@ -62,39 +78,15 @@ namespace Zafiro.Storage.Windows
                         command.AddParameter(arg, v);
                     }
                 }
-
-                var psDataCollection = await Task.Factory.FromAsync(ps.BeginInvoke(), ps.EndInvoke);
-
-                if (ps.HadErrors)
-                {
-                    var paramstr = string.Join(",", parameters.Select(tuple => $"{tuple.Item1}={tuple.Item2}"));
-                    throw new ApplicationException($"The execution of the command '{commandText} failed. Parameters: {paramstr}");
-                }
-
-                return psDataCollection;
             });
-        }
 
-        public static async Task<PSDataCollection<PSObject>> ExecuteCommand(this PowerShell ps, string commandText, IEnumerable<object> arguments,
-            params (string, object)[] parameters)
-        {
-            ps.Commands.Clear();
-
-            var command = ps.AddCommand(commandText);
-
-            foreach (var (arg, v) in parameters)
+            if (execution.IsFailure)
             {
-                command.AddParameter(arg, v);
+                var paramstr = string.Join(",", parameters.Select(tuple => $"{tuple.Item1}={tuple.Item2}"));
+                throw new ApplicationException($"The execution of the command '{commandText} failed. Parameters: {paramstr}");
             }
 
-            var psDataCollection = await Task.Factory.FromAsync(ps.BeginInvoke(), ps.EndInvoke);
-
-            if (ps.HadErrors)
-            {
-                throw new ApplicationException($"The execution of the command '{commandText}' failed");
-            }
-
-            return psDataCollection;
+            return execution.Value;
         }
     }
 }

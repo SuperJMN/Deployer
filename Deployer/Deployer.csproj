@@ -7,10 +7,10 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="DumpExtensions" Version="2.0.0" />
-    <PackageReference Include="Iridio.Runtime" Version="2.1.27" />
+    <PackageReference Include="Iridio.Runtime" Version="2.1.28" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="7.3.0" />
-    <PackageReference Include="Iridio" Version="2.1.27" />
+    <PackageReference Include="Iridio" Version="2.1.28" />
     <PackageReference Include="Octokit" Version="0.50.0" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.1.15" />
     <PackageReference Include="Zafiro.Network" Version="2.4.17" />
