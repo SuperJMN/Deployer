@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO.Abstractions;
 using System.Linq;
 using Deployer.Gui.ViewModels;
 using Deployer.Library.Generator;
@@ -14,7 +15,7 @@ namespace Deployer.Gui
         {
             Devices = DefaultStore.Create()
                 .Devices
-                .Select(device => new DeviceViewModel(device, new NullDeployer(), null))
+                .Select(device => new DeviceViewModel(device, new NullDeployer(), new FileSystem()))
                 .ToList();
         }
 
