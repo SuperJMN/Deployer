@@ -93,6 +93,11 @@
 					</ComboBox>
                     <ItemsControl DataContext="{Binding SelectedDevice.SelectedDeployment.Requirements}"
                                   Items="{Binding Requirements}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Spacing="8" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
                     </ItemsControl>
 				</StackPanel>
 

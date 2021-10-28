@@ -16,7 +16,7 @@
 				</Deployment>
 			</Deployments>
 		</Device>
-		<Device>
+		<!--<Device>
 			<Code>Talkman</Code>
 			<FriendlyName>Lumia 950</FriendlyName>
 			<Name>Lumia 950</Name>
@@ -30,6 +30,6 @@
 					<Description>Deploys WOA into the phone's internal memory</Description>
 				</Deployment>
 			</Deployments>
-		</Device>
+		</Device>-->
 	</Devices>
 </DeployerStore>

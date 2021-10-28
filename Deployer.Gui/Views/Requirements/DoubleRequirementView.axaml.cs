@@ -1,11 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace Deployer.Gui.Views
+namespace Deployer.Gui.Views.Requirements
 {
-    public class IntRequirementView : UserControl
+    public partial class DoubleRequirementView : UserControl
     {
-        public IntRequirementView()
+        public DoubleRequirementView()
         {
             InitializeComponent();
         }

@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Deployer.Gui.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Deployer.Gui.Views.Requirements.WimFileRequirementView">
+   
+    <StackPanel Orientation="Vertical" Spacing="8" >
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Browse" Command="{Binding Browse}" />
+            <TextBlock Text="{Binding WimFilePath}" />
+        </DockPanel>
+        <NumericUpDown Value="{Binding WimFileIndex}" Minimum="1" />
+    </StackPanel>
+	
+</UserControl>
