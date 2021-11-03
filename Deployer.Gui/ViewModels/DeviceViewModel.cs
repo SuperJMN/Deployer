@@ -24,7 +24,7 @@ namespace Deployer.Gui.ViewModels
                 return device.Deployments
                     .ToObservable()
                     .SelectMany(deployment => GetRequirements(deployment)
-                        .Select(requirements => new DeploymentViewModel(deployment, deployer, fileSystem, requirements)))
+                        .Select(requirements => new DeploymentViewModel(deployment, deployer, requirements)))
                     .ToList();
             });
 

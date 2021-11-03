@@ -8,7 +8,7 @@ namespace Deployer
         public double DefaultValue { get; }
         public double Max { get; }
 
-        public DoubleRequirement(string name, double min, double defaultValue, double max) : base(name)
+        public DoubleRequirement(string name, string description, double min, double defaultValue, double max) : base(name, description)
         {
             Min = min;
             DefaultValue = defaultValue;

@@ -2,10 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:gui="clr-namespace:Deployer.Gui"
+             mc:Ignorable="d" d:DesignWidth="800"
              x:Class="Deployer.Gui.Views.Requirements.DoubleRequirementView">
-	<DockPanel>
+    <Design.DataContext>
+		<gui:DoubleRequirementViewModelDesign />
+    </Design.DataContext>
+
+    <DockPanel>
 		<NumericUpDown DockPanel.Dock="Right" Value="{Binding Value}" Minimum="1" ClipValueToMinMax="True" />
-		<TextBlock VerticalAlignment="Center">Double numeric value</TextBlock>
-	</DockPanel>
+		<TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
+    </DockPanel>
 </UserControl>

@@ -1,4 +1,4 @@
-namespace Deployer.Gui
+namespace Deployer.Gui.ViewModels.Design
 {
     public class OperationStatusViewModelDesign
     {

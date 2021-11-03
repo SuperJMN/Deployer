@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using CSharpFunctionalExtensions;
 using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels.Requirements
 {
     internal class WimFileRequirementViewModel : RequirementViewModelBase
     {
-        private string wimFilePath;
+        private Maybe<string> wimFilePath;
         private int wimFileIndex;
         public WimFileRequirement Requirement { get; }
 
-        public WimFileRequirementViewModel(WimFileRequirement requirement)
+        public WimFileRequirementViewModel(WimFileRequirement requirement) : base(requirement)
         {
             Requirement = requirement;
             Browse = ReactiveCommand.CreateFromTask(async () =>
@@ -23,7 +23,7 @@ namespace Deployer.Gui.ViewModels.Requirements
                 var picker = new OpenFileDialog
                 {
                     Title = "Select a .WIM or ESD file",
-                    Filters = new List<FileDialogFilter>()
+                    Filters = new List<FileDialogFilter>
                     {
                         new()
                         {
@@ -36,16 +36,16 @@ namespace Deployer.Gui.ViewModels.Requirements
                 var currentApplicationLifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
                 var win=currentApplicationLifetime.MainWindow;
                 var files = await picker.ShowAsync(win);
-                return files.First();
+                return files.TryFirst();
             });
 
             WimFileIndex = 1;
             Browse.Subscribe(s => WimFilePath = s);
         }
 
-        public ReactiveCommand<Unit, string> Browse { get; set; }
+        public ReactiveCommand<Unit, Maybe<string>> Browse { get; }
 
-        public string WimFilePath
+        public Maybe<string> WimFilePath
         {
             get => wimFilePath;
             set => this.RaiseAndSetIfChanged(ref wimFilePath, value);

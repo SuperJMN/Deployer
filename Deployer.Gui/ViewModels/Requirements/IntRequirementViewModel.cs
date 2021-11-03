@@ -8,7 +8,7 @@ namespace Deployer.Gui.ViewModels.Requirements
         private int value;
         public IntRequirement Requirement { get; }
 
-        public IntRequirementViewModel(IntRequirement requirement)
+        public IntRequirementViewModel(IntRequirement requirement) : base(requirement)
         {
             Requirement = requirement;
         }

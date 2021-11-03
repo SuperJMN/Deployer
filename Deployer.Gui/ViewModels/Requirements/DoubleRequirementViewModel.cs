@@ -8,7 +8,7 @@ namespace Deployer.Gui.ViewModels.Requirements
         private double value;
         public DoubleRequirement Requirement { get; }
 
-        public DoubleRequirementViewModel(DoubleRequirement requirement)
+        public DoubleRequirementViewModel(DoubleRequirement requirement) : base(requirement)
         {
             Requirement = requirement;
         }

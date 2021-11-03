@@ -7,7 +7,6 @@
 
     <DockPanel>
         <NumericUpDown DockPanel.Dock="Right" Value="{Binding Value}" />
-        <TextBlock VerticalAlignment="Center">Integer numeric value</TextBlock>
-    </DockPanel>
+        <TextBlock VerticalAlignment="Center" Text="{Binding Description}" />    </DockPanel>
 
 </UserControl>

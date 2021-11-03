@@ -4,7 +4,7 @@ namespace Deployer
 {
     public class WimFileRequirement : Requirement
     {
-        public WimFileRequirement(string key) : base(key)
+        public WimFileRequirement(string key, string description) : base(key, description)
         {
         }
 
