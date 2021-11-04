@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Deployer.Gui.Views
 {
-    public partial class ProgressControl : UserControl
+    public partial class ProgressView : UserControl
     {
-        public ProgressControl()
+        public ProgressView()
         {
             InitializeComponent();
         }

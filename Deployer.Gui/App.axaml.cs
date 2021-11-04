@@ -1,4 +1,5 @@
 using System.IO.Abstractions;
+using Autofac;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -22,15 +23,25 @@ namespace Deployer.Gui
             {
                 var desktopMainWindow = new MainWindow();
                 desktop.MainWindow = desktopMainWindow;
-
-                var deployerAvalonia = new DeployerAvalonia();
-                var mainWindowViewModel = new MainWindowViewModel(new XmlDeploymentSerializer(), new OperationStatusViewModel(deployerAvalonia),
-                    deployerAvalonia, new FileSystem());
-
-                desktopMainWindow.DataContext = mainWindowViewModel;
+                desktopMainWindow.DataContext = CreateDataContext();
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private static MainWindowViewModel CreateDataContext()
+        {
+            var containerBuilder = new ContainerBuilder();
+
+            containerBuilder.RegisterType<DeployerAvalonia>().AsImplementedInterfaces().SingleInstance();
+            containerBuilder.RegisterType<XmlDeploymentSerializer>().AsImplementedInterfaces().SingleInstance();
+            containerBuilder.RegisterType<FileSystem>().AsImplementedInterfaces().SingleInstance();
+            containerBuilder.RegisterAssemblyTypes(typeof(ViewModelBase).Assembly).Where(t => t.IsAssignableTo(typeof(ViewModelBase))).AsSelf();
+
+            var container = containerBuilder.Build();
+            var main = container.Resolve<MainWindowViewModel>();
+
+            return main;
         }
     }
 }

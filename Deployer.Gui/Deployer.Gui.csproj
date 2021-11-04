@@ -27,6 +27,12 @@
     <ProjectReference Include="..\Deployer.Library\Deployer.Library.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\OperationStatusView.axaml.cs">
+      <DependentUpon>OperationStatusView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProgressView.axaml.cs">
+      <DependentUpon>ProgressView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Requirements\IntRequirementView.axaml.cs">
       <DependentUpon>IntRequirementView.axaml</DependentUpon>
     </Compile>

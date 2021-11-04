@@ -12,12 +12,12 @@ namespace Deployer.Gui.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         public OperationStatusViewModel OperationStatus { get; }
-        private DeviceViewModel selectedDevice;
+        private DeviceViewModel selectedDevice = null!;
         private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
-        private string statusMessage;
+        private string statusMessage = null!;
         private bool isBusy;
 
-        public MainWindowViewModel(IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer, IFileSystem fileSystem)
+        public MainWindowViewModel(Func<Device, DeviceViewModel> func, IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer, IFileSystem fileSystem)
         {
             OperationStatus = operationStatus;
             Fetch = ReactiveCommand.Create(() =>
@@ -25,7 +25,7 @@ namespace Deployer.Gui.ViewModels
                 return deploymentSerializer
                     .Deserialize(File.ReadAllText("Store.xml"))
                     .Devices
-                    .Select(device => new DeviceViewModel(device, deployer, fileSystem))
+                    .Select(device => func(device))
                     .ToList();
             });
 

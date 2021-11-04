@@ -36,7 +36,7 @@
                 BorderBrush="Gray" BorderThickness="1"
                 Padding="10"
                 IsVisible="{Binding IsBusy}" >
-            <views:OperationStatusPart DataContext="{Binding OperationStatus}"/>
+            <views:OperationStatusView DataContext="{Binding OperationStatus}"/>
         </Border>
 
 	</Grid>

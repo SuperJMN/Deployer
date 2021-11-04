@@ -3,9 +3,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Deployer.Gui.Views
 {
-    public class OperationStatusPart : UserControl
+    public class OperationStatusView : UserControl
     {
-        public OperationStatusPart()
+        public OperationStatusView()
         {
             InitializeComponent();
         }
