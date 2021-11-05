@@ -1,4 +1,4 @@
-namespace Deployer.Gui.ViewModels
+namespace Deployer.Gui.ViewModels.Messages
 {
     public class StatusMessage
     {

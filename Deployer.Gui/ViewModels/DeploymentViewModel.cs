@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
+using Deployer.Gui.ViewModels.Messages;
 using Deployer.Library;
 using ReactiveUI;
 

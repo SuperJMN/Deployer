@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Reactive;
+using Deployer.Gui.ViewModels.Messages;
 using Deployer.Library;
 using ReactiveUI;
 
@@ -17,7 +18,7 @@ namespace Deployer.Gui.ViewModels
         private string statusMessage = null!;
         private bool isBusy;
 
-        public MainWindowViewModel(Func<Device, DeviceViewModel> func, IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer, IFileSystem fileSystem)
+        public MainWindowViewModel(Func<Device, DeviceViewModel> deviceViewModelFactory, IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer, IFileSystem fileSystem)
         {
             OperationStatus = operationStatus;
             Fetch = ReactiveCommand.Create(() =>
@@ -25,7 +26,7 @@ namespace Deployer.Gui.ViewModels
                 return deploymentSerializer
                     .Deserialize(File.ReadAllText("Store.xml"))
                     .Devices
-                    .Select(device => func(device))
+                    .Select(deviceViewModelFactory)
                     .ToList();
             });
 

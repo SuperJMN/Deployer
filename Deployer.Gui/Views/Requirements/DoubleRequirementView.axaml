@@ -3,10 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:gui="clr-namespace:Deployer.Gui"
+             xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
              mc:Ignorable="d" d:DesignWidth="800"
              x:Class="Deployer.Gui.Views.Requirements.DoubleRequirementView">
     <Design.DataContext>
-		<gui:DoubleRequirementViewModelDesign />
+		<design:DoubleRequirementViewModelDesign />
     </Design.DataContext>
 
     <DockPanel>
