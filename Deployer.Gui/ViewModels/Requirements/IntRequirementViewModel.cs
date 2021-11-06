@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels.Requirements
@@ -20,5 +22,6 @@ namespace Deployer.Gui.ViewModels.Requirements
         }
 
         public override IEnumerable<(string, object)> FilledRequirements => new[] { (Requirement.Key, (object)Value) };
+        public override IObservable<bool> IsValid => Observable.Return(true);
     }
 }

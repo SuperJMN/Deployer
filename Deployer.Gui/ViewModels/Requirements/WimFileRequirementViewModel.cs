@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -27,7 +28,7 @@ namespace Deployer.Gui.ViewModels.Requirements
                     {
                         new()
                         {
-                            Extensions = new List<string> {"*.esd;*.wim"},
+                            Extensions = new List<string> {"install.esd;install.wim"},
                             Name = "Windows Images"
                         }
                     }
@@ -41,6 +42,10 @@ namespace Deployer.Gui.ViewModels.Requirements
 
             WimFileIndex = 1;
             Browse.Subscribe(s => WimFilePath = s);
+
+            IsValid = this
+                .WhenAnyValue(t => t.WimFilePath)
+                .Select(maybe => maybe.Match(s => !string.IsNullOrEmpty(s), () => false));
         }
 
         public ReactiveCommand<Unit, Maybe<string>> Browse { get; }
@@ -60,7 +65,9 @@ namespace Deployer.Gui.ViewModels.Requirements
         public override IEnumerable<(string, object)> FilledRequirements => new (string, object)[]
         {
             (Requirement.Key + "Index", WimFileIndex),
-            (Requirement.Key + "Path", WimFilePath),
+            (Requirement.Key + "Path", WimFilePath.GetValueOrThrow()),
         };
+
+        public override IObservable<bool> IsValid { get; }
     }
 }

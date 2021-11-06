@@ -40,7 +40,7 @@ namespace Deployer.Gui.ViewModels
                     case AbsoluteProgress<ulong> undefinedProgress:
                         IsProgressVisible = true;
                         IsProgressIndeterminate = true;
-                        ProgressText = string.Format("{0} downloaded", ByteSize.FromBytes(undefinedProgress.Value));
+                        ProgressText = $"{ByteSize.FromBytes(undefinedProgress.Value):0.0} downloaded";
                         break;
                     case Unknown unknown:
                         IsProgressVisible = true;

@@ -27,7 +27,7 @@ namespace Deployer.Gui.ViewModels.Design
             set => this.RaiseAndSetIfChanged(ref selectedDevice, value);
         }
 
-        public string StatusMessage => "Saludos";
+        public StatusMessageViewModel StatusMessage => new SuccessStatusMessageViewModel();
 
         public bool IsBusy => false;
 

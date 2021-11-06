@@ -15,7 +15,7 @@ namespace Deployer.Gui.ViewModels
         public OperationStatusViewModel OperationStatus { get; }
         private DeviceViewModel selectedDevice = null!;
         private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
-        private string statusMessage = null!;
+        private StatusMessageViewModel statusMessage = null!;
         private bool isBusy;
 
         public MainWindowViewModel(Func<Device, DeviceViewModel> deviceViewModelFactory, IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer, IFileSystem fileSystem)
@@ -33,8 +33,12 @@ namespace Deployer.Gui.ViewModels
             devices = Fetch.ToProperty(this, x => x.Devices);
 
             Fetch.Execute().Subscribe();
-            MessageBus.Current.Listen<StatusMessage>().Subscribe(m => StatusMessage = m.Content);
-            MessageBus.Current.Listen<DeploymentStart>().Subscribe(m => IsBusy = true);
+            MessageBus.Current.Listen<StatusMessageViewModel>().Subscribe(m => StatusMessage = m);
+            MessageBus.Current.Listen<DeploymentStart>().Subscribe(m =>
+            {
+                StatusMessage = null;
+                IsBusy = true;
+            });
             MessageBus.Current.Listen<DeploymentFinished>().Subscribe(m => IsBusy = false);
         }
 
@@ -54,7 +58,7 @@ namespace Deployer.Gui.ViewModels
             set => this.RaiseAndSetIfChanged(ref selectedDevice, value);
         }
 
-        public string StatusMessage
+        public StatusMessageViewModel StatusMessage
         {
             get => statusMessage;
             private set => this.RaiseAndSetIfChanged(ref statusMessage, value);

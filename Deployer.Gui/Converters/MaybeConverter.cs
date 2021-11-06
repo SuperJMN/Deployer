@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using CSharpFunctionalExtensions;
 using Zafiro.Reflection;

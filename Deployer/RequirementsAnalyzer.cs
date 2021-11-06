@@ -36,6 +36,8 @@ namespace Deployer
                     return new DoubleRequirement(name, description, double.Parse(parsed[1]), double.Parse(parsed[2]), double.Parse(parsed[3]));
                 case "wimfile":
                     return new WimFileRequirement(name, description);
+                case "disk":
+                    return new DiskRequirement(name, description);
             }
 
             throw new ArgumentOutOfRangeException();
