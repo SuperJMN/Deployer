@@ -1,0 +1,5 @@
+﻿//<Fetching Deployment Scripts>
+//Unzip(GitHub("WOA-Project", "Deployment-Feed"), "Feed");
+
+// The line below is for testing purposes
+CopyDirectory("E:\Repos\WOA-Project\Deployment-Feed", "..\Feed");

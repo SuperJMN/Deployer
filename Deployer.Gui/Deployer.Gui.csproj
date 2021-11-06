@@ -27,24 +27,7 @@
     <ProjectReference Include="..\Deployer.Library.Generator\Deployer.Library.Generator.csproj" />
     <ProjectReference Include="..\Deployer.Library\Deployer.Library.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\OperationStatusView.axaml.cs">
-      <DependentUpon>OperationStatusView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\ProgressView.axaml.cs">
-      <DependentUpon>ProgressView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Requirements\DiskRequirementView.axaml.cs">
-      <DependentUpon>DiskRequirementView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Requirements\IntRequirementView.axaml.cs">
-      <DependentUpon>IntRequirementView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Requirements\DoubleRequirementView.axaml.cs">
-      <DependentUpon>DoubleRequirementView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+	<ItemGroup>
     <None Update="Store.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
