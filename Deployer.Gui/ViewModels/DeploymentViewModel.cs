@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace Deployer.Gui.ViewModels
     public class DeploymentViewModel : ViewModelBase
     {
         private readonly Deployment deployment;
+        private readonly IFileSystem fileSystem;
 
         public DeploymentViewModel(Deployment deployment, IDeployer deployer,
-            IEnumerable<Requirement> requirements)
+            IEnumerable<Requirement> requirements, IFileSystem fileSystem)
         {
             this.deployment = deployment;
+            this.fileSystem = fileSystem;
 
             Requirements = new RequirementListViewModel(requirements);
 
@@ -39,7 +42,7 @@ namespace Deployer.Gui.ViewModels
 
         private async Task<Result> ExecuteDeployment(IDeployer deployer)
         {
-            var deploymentScriptPath = "Deployment-Feed\\" + deployment.ScriptPath;
+            var deploymentScriptPath = fileSystem.Path.Combine(Constants.DeploymentFeed, deployment.ScriptPath);
             var initialState = CreateInitialState();
 
             MessageBus.Current.SendMessage(new DeploymentStart());

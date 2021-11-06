@@ -35,8 +35,7 @@ namespace Deployer.Functions.Unzip.Core
                 Log.Warning("{Url} already downloaded. Skipping download.", url);
                 return;
             }
-
-
+            
             using (var stream = await downloader.GetStream(new Uri(url), executionContext.Operation))
             {
                 await Extract(stream, finalDir);

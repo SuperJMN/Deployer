@@ -10,21 +10,22 @@ namespace Deployer.Gui.ViewModels
 {
     public class DeviceViewModel : ViewModelBase
     {
+        private readonly ObservableAsPropertyHelper<IList<DeploymentViewModel>> deployments;
         private readonly Device device;
         private readonly IFileSystem fileSystem;
         private DeploymentViewModel selectedDeployment;
-        private readonly ObservableAsPropertyHelper<IList<DeploymentViewModel>> deployments;
 
         public DeviceViewModel(Device device, IDeployer deployer, IFileSystem fileSystem)
         {
             this.device = device;
             this.fileSystem = fileSystem;
-            FetchDeployments = ReactiveCommand.CreateFromObservable( () =>
+            FetchDeployments = ReactiveCommand.CreateFromObservable(() =>
             {
                 return device.Deployments
                     .ToObservable()
                     .SelectMany(deployment => GetRequirements(deployment)
-                        .Select(requirements => new DeploymentViewModel(deployment, deployer, requirements)))
+                        .Select(requirements =>
+                            new DeploymentViewModel(deployment, deployer, requirements, fileSystem)))
                     .ToList();
             });
 
@@ -35,16 +36,6 @@ namespace Deployer.Gui.ViewModels
         public IList<DeploymentViewModel> Deployments => deployments.Value;
 
         public ReactiveCommand<Unit, IList<DeploymentViewModel>> FetchDeployments { get; set; }
-
-        private IObservable<IEnumerable<Requirement>> GetRequirements(Deployment deployment)
-        {
-            var requirementAnalyzer = new RequirementsAnalyzer();
-            var deploymentScriptPath = "Deployment-Feed\\" + deployment.ScriptPath;
-
-            return Observable
-                .FromAsync(async () =>
-                    requirementAnalyzer.GetRequirements(await fileSystem.File.ReadAllTextAsync(deploymentScriptPath)));
-        }
 
         public DeploymentViewModel SelectedDeployment
         {
@@ -57,5 +48,14 @@ namespace Deployer.Gui.ViewModels
         public string Code => device.Code;
         public string Variant => device.Variant;
 
+        private IObservable<IEnumerable<Requirement>> GetRequirements(Deployment deployment)
+        {
+            var requirementAnalyzer = new RequirementsAnalyzer();
+            var deploymentScriptPath = fileSystem.Path.Combine(Constants.DeploymentFeed, deployment.ScriptPath);
+
+            return Observable
+                .FromAsync(async () =>
+                    requirementAnalyzer.GetRequirements(await fileSystem.File.ReadAllTextAsync(deploymentScriptPath)));
+        }
     }
 }

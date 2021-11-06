@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Abstractions;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using Deployer.Gui.ViewModels.Messages;
 using Deployer.Library;
 using ReactiveUI;
@@ -18,17 +17,19 @@ namespace Deployer.Gui.ViewModels
         private StatusMessageViewModel statusMessage = null!;
         private bool isBusy;
 
-        public MainWindowViewModel(Func<Device, DeviceViewModel> deviceViewModelFactory, IDeployementSerializer deploymentSerializer, OperationStatusViewModel operationStatus, IDeployer deployer, IFileSystem fileSystem)
+        public MainWindowViewModel(Func<Device, DeviceViewModel> deviceViewModelFactory, IFeedInstaller feedInstaller,
+            IDeviceRepository repository, OperationStatusViewModel operationStatus)
         {
             OperationStatus = operationStatus;
-            Fetch = ReactiveCommand.Create(() =>
-            {
-                return deploymentSerializer
-                    .Deserialize(File.ReadAllText("Store.xml"))
-                    .Devices
-                    .Select(deviceViewModelFactory)
-                    .ToList();
-            });
+
+            Install = ReactiveCommand.CreateFromTask(feedInstaller.Install);
+            Install.Execute().Subscribe();
+
+            Fetch = ReactiveCommand.CreateFromObservable(() =>
+                Install.Execute()
+                    .Select(_ => repository.Get()
+                        .Select(deviceViewModelFactory)
+                        .ToList()));
 
             devices = Fetch.ToProperty(this, x => x.Devices);
 
@@ -39,8 +40,12 @@ namespace Deployer.Gui.ViewModels
                 StatusMessage = null;
                 IsBusy = true;
             });
+
+
             MessageBus.Current.Listen<DeploymentFinished>().Subscribe(m => IsBusy = false);
         }
+
+        public ReactiveCommand<Unit, Unit> Install { get; }
 
         public bool IsBusy
         {

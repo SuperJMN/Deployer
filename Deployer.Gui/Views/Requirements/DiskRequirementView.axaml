@@ -12,7 +12,7 @@
 
 	<StackPanel>
 		<DockPanel IsEnabled="{Binding IsUnlocked}">
-			<NumericUpDown DockPanel.Dock="Right" Value="{Binding Value}" />
+			<NumericUpDown DockPanel.Dock="Right" Minimum="0" Value="{Binding Value}" />
 			<TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
 		</DockPanel>
 		<CheckBox Margin="10" IsChecked="{Binding IsUnlocked}">
