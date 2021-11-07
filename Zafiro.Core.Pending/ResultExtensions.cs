@@ -5,7 +5,7 @@ using CSharpFunctionalExtensions;
 
 namespace Zafiro.Core.Pending
 {
-    public static class MyResultExtensions
+    public static class ResultExtensions
     {
         public static IEnumerable<T> ToEnumerable<T>(this Result<T> result)
         {

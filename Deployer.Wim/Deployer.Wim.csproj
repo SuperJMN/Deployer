@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSharpFunctionalExtensions" Version="2.24.0" />
-    <PackageReference Include="Zafiro.Core" Version="2.4.6" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.24.3" />
+    <PackageReference Include="Zafiro.Core" Version="2.4.17" />
   </ItemGroup>
 
   <ItemGroup>
