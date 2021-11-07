@@ -1,23 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Abstractions;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using CSharpFunctionalExtensions;
+using Deployer.Wim;
 using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels.Requirements
 {
     internal class WimFileRequirementViewModel : RequirementViewModelBase
     {
+        private readonly IWindowsImageMetadataReader windowsImageMetadataReader;
+        private readonly IFileSystem fileSystem;
         private Maybe<string> wimFilePath;
         private int wimFileIndex;
+        private readonly ObservableAsPropertyHelper<IEnumerable<DiskImageMetadata>> images;
+        private Maybe<DiskImageMetadata> selectedImage;
         public WimFileRequirement Requirement { get; }
 
-        public WimFileRequirementViewModel(WimFileRequirement requirement) : base(requirement)
+        public WimFileRequirementViewModel(WimFileRequirement requirement, IWindowsImageMetadataReader windowsImageMetadataReader, IFileSystem fileSystem) : base(requirement)
         {
+            this.windowsImageMetadataReader = windowsImageMetadataReader;
+            this.fileSystem = fileSystem;
             Requirement = requirement;
             Browse = ReactiveCommand.CreateFromTask(async () =>
             {
@@ -40,13 +50,45 @@ namespace Deployer.Gui.ViewModels.Requirements
                 return files.TryFirst();
             });
 
-            WimFileIndex = 1;
+            var obs = this
+                .WhenAnyValue(x => x.WimFilePath)
+                .SelectMany(path => path.ToList())
+                .SelectMany(path => LoadImage(windowsImageMetadataReader, fileSystem, path))
+                .Select(metadata => metadata.Match(m => m, s => Enumerable.Empty<DiskImageMetadata>()));
+
+            images = obs.ToProperty(this, x => x.Images);
+
+            obs.Subscribe(r => SelectedImage = r.TryFirst());
+                
             Browse.Subscribe(s => WimFilePath = s);
 
             IsValid = this
-                .WhenAnyValue(t => t.WimFilePath)
-                .Select(maybe => maybe.Match(s => !string.IsNullOrEmpty(s), () => false));
+                .WhenAnyValue(t => t.SelectedImage)
+                .Select(maybe => maybe.HasValue);
         }
+
+        public Maybe<DiskImageMetadata> SelectedImage
+        {
+            get => selectedImage;
+            set => this.RaiseAndSetIfChanged(ref selectedImage , value);
+        }
+
+        private static IObservable<Result<IList<DiskImageMetadata>>> LoadImage(IWindowsImageMetadataReader windowsImageMetadataReader, IFileSystem fileSystem, string s)
+        {
+            if (!fileSystem.File.Exists(s))
+            {
+                return Observable.Return(Result.Failure<IList<DiskImageMetadata>>("The image doesn't exist"));
+            }
+
+            return Observable.Using<Result<IList<DiskImageMetadata>>, Stream>(() => fileSystem.File.OpenRead(s),
+                stream =>
+                {
+                    var result = windowsImageMetadataReader.Load(stream).Map(x => x.Images);
+                    return Observable.Return(result);
+                });
+        }
+
+        public IEnumerable<DiskImageMetadata> Images => images.Value;
 
         public ReactiveCommand<Unit, Maybe<string>> Browse { get; }
 
@@ -56,15 +98,9 @@ namespace Deployer.Gui.ViewModels.Requirements
             set => this.RaiseAndSetIfChanged(ref wimFilePath, value);
         }
 
-        public int WimFileIndex
-        {
-            get => wimFileIndex;
-            set => this.RaiseAndSetIfChanged(ref wimFileIndex, value);
-        }
-
         public override IEnumerable<(string, object)> FilledRequirements => new (string, object)[]
         {
-            (Requirement.Key + "Index", WimFileIndex),
+            (Requirement.Key + "Index", SelectedImage.GetValueOrThrow().Index),
             (Requirement.Key + "Path", WimFilePath.GetValueOrThrow()),
         };
 

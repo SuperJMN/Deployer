@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:gui="clr-namespace:Deployer.Gui"
              xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             xmlns:wim="clr-namespace:Deployer.Wim;assembly=Deployer.Wim"
              mc:Ignorable="d" d:DesignWidth="800" 
              x:Class="Deployer.Gui.Views.Requirements.WimFileRequirementView">
 
@@ -12,7 +13,7 @@
     </Design.DataContext>
 
 	<UserControl.Resources>
-		<gui:MaybeConverter x:Key="MaybeConverter"></gui:MaybeConverter>
+		<gui:MaybeConverter x:Key="MaybeConverter" />
     </UserControl.Resources>
 
     <StackPanel Spacing="10">
@@ -22,11 +23,18 @@
 				<Button Margin="4" DockPanel.Dock="Right" Content="Browse" Command="{Binding Browse}" />
 				<TextBox Text="{Binding WimFilePath, Converter={StaticResource MaybeConverter}}" />
 			</DockPanel>
-			<StackPanel Orientation="Horizontal">
-				<TextBlock VerticalAlignment="Center" Margin="9" Text="Image index" DockPanel.Dock="Left"  />
-                <NumericUpDown Value="{Binding WimFileIndex}" Minimum="1" />
-            </StackPanel>
-		</StackPanel>
+			<ComboBox Items="{Binding Images}" SelectedItem="{Binding SelectedImage, Mode=TwoWay, Converter={StaticResource MaybeConverter}}">
+               <ComboBox.ItemTemplate>
+                   <DataTemplate>
+                       <StackPanel Orientation="Horizontal" Spacing="4">
+                           <TextBlock Text="{Binding Index}" />
+                           <TextBlock Text="{Binding DisplayName}" />
+                           <TextBlock Text="{Binding Build}" />
+                       </StackPanel>
+                   </DataTemplate>
+			   </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
 	</StackPanel>
 
 

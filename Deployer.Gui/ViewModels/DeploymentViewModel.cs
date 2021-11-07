@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using Deployer.Gui.ViewModels.Messages;
 using Deployer.Library;
+using Deployer.Wim;
 using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels
@@ -17,12 +18,13 @@ namespace Deployer.Gui.ViewModels
         private readonly IFileSystem fileSystem;
 
         public DeploymentViewModel(Deployment deployment, IDeployer deployer,
-            IEnumerable<Requirement> requirements, IFileSystem fileSystem)
+            IEnumerable<Requirement> requirements, IFileSystem fileSystem,
+            IWindowsImageMetadataReader windowsImageMetadataReader)
         {
             this.deployment = deployment;
             this.fileSystem = fileSystem;
 
-            Requirements = new RequirementListViewModel(requirements);
+            Requirements = new RequirementListViewModel(requirements, windowsImageMetadataReader, fileSystem);
 
             Deploy = ReactiveCommand.CreateFromTask(() => ExecuteDeployment(deployer), Requirements.IsValid);
             Deploy.Subscribe(result =>

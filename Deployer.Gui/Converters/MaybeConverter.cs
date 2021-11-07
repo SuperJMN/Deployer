@@ -29,7 +29,11 @@ namespace Deployer.Gui
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Maybe.From((string)value);
+            var t = targetType.GetGenericArguments()[0];
+            var maybeType = typeof(Maybe<>).MakeGenericType(t);
+            var method = maybeType.GetMethod("From");
+            var ret = method.Invoke(null, new []{ value });
+            return ret;
         }
     }
 }

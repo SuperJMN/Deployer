@@ -15,7 +15,7 @@ namespace Deployer.Gui.ViewModels
         private readonly IFileSystem fileSystem;
         private DeploymentViewModel selectedDeployment;
 
-        public DeviceViewModel(Device device, IDeployer deployer, IFileSystem fileSystem)
+        public DeviceViewModel(Func<Deployment, IEnumerable<Requirement>, DeploymentViewModel> createDeploymentViewModel, Device device, IFileSystem fileSystem)
         {
             this.device = device;
             this.fileSystem = fileSystem;
@@ -25,7 +25,7 @@ namespace Deployer.Gui.ViewModels
                     .ToObservable()
                     .SelectMany(deployment => GetRequirements(deployment)
                         .Select(requirements =>
-                            new DeploymentViewModel(deployment, deployer, requirements, fileSystem)))
+                            createDeploymentViewModel(deployment, requirements)))
                     .ToList();
             });
 

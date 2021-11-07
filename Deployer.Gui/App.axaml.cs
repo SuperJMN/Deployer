@@ -11,6 +11,7 @@ using Deployer.Functions.Unzip;
 using Deployer.Gui.ViewModels;
 using Deployer.Gui.Views;
 using Deployer.Library;
+using Deployer.Wim;
 using Zafiro.Core.FileSystem;
 using Zafiro.Network;
 
@@ -43,6 +44,7 @@ namespace Deployer.Gui
             containerBuilder.RegisterType<FeedInstaller>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterType<DeviceRepository>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterType<XmlDeploymentSerializer>().AsImplementedInterfaces().SingleInstance();
+            containerBuilder.RegisterType<WindowsImageMetadataReader>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterType<FileSystem>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterAssemblyTypes(typeof(ViewModelBase).Assembly).Where(t => t.IsAssignableTo(typeof(ViewModelBase))).AsSelf();
 
