@@ -5,6 +5,7 @@ using CSharpFunctionalExtensions;
 using Deployer.Functions.Core;
 using Deployer.Functions.Filesystem.Utils;
 using Serilog;
+using Zafiro.Core.Pending;
 using Zafiro.Storage;
 
 namespace Deployer.Functions

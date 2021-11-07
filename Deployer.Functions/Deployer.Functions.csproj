@@ -29,6 +29,7 @@
 		</ProjectReference>
 		<ProjectReference Include="..\Deployer.Zip\Deployer.Compression.csproj" />
 		<ProjectReference Include="..\Zafiro.Clients.AzureDevOps\Zafiro.Tools.AzureDevOps.csproj" />
+		<ProjectReference Include="..\Zafiro.Core.Pending\Zafiro.Core.Pending.csproj" />
 		<ProjectReference Include="..\Zafiro.Storage.Implementation\Zafiro.Storage.Windows.csproj" />
 		<ProjectReference Include="..\Zafiro.System.Windows\Zafiro.System.Windows.csproj" />
 	</ItemGroup>

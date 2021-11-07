@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 
-namespace Deployer.Functions
+namespace Zafiro.Core.Pending
 {
     public static class CombineExtensions
     {
