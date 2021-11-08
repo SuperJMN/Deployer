@@ -16,18 +16,13 @@ namespace Deployer.Gui.ViewModels.Requirements
 {
     internal class WimFileRequirementViewModel : RequirementViewModelBase
     {
-        private readonly IWindowsImageMetadataReader windowsImageMetadataReader;
-        private readonly IFileSystem fileSystem;
         private Maybe<string> wimFilePath;
-        private int wimFileIndex;
         private readonly ObservableAsPropertyHelper<IEnumerable<DiskImageMetadata>> images;
         private Maybe<DiskImageMetadata> selectedImage;
         public WimFileRequirement Requirement { get; }
 
         public WimFileRequirementViewModel(WimFileRequirement requirement, IWindowsImageMetadataReader windowsImageMetadataReader, IFileSystem fileSystem) : base(requirement)
         {
-            this.windowsImageMetadataReader = windowsImageMetadataReader;
-            this.fileSystem = fileSystem;
             Requirement = requirement;
             Browse = ReactiveCommand.CreateFromTask(async () =>
             {
@@ -58,13 +53,13 @@ namespace Deployer.Gui.ViewModels.Requirements
 
             images = obs.ToProperty(this, x => x.Images);
 
-            obs.Subscribe(r => SelectedImage = r.TryFirst());
-                
             Browse.Subscribe(s => WimFilePath = s);
 
             IsValid = this
                 .WhenAnyValue(t => t.SelectedImage)
                 .Select(maybe => maybe.HasValue);
+
+            this.WhenAnyValue(x => x.Images).Where(r => r is not null).Subscribe(imgs => SelectedImage = imgs.TryFirst());
         }
 
         public Maybe<DiskImageMetadata> SelectedImage

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reactive;
+using CSharpFunctionalExtensions;
 using Deployer.Wim;
 using ReactiveUI;
 
@@ -22,5 +23,7 @@ namespace Deployer.Gui.ViewModels.Design
                 DisplayName = "Windows 10 Pro"
             },
         };
+
+        public Maybe<DiskImageMetadata> SelectedImage => Images.TryFirst();
     }
 }
