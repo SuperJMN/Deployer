@@ -27,9 +27,10 @@
                <ComboBox.ItemTemplate>
                    <DataTemplate>
                        <StackPanel Orientation="Horizontal" Spacing="4">
-                           <TextBlock Text="{Binding Index}" />
+                           <TextBlock FontWeight="Bold" Text="{Binding Index, StringFormat='{}{0}:'}" />
                            <TextBlock Text="{Binding DisplayName}" />
-                           <TextBlock Text="{Binding Build}" />
+                           <TextBlock Text="{Binding Architecture}" />
+                           <TextBlock Text="{Binding Build, StringFormat='(build {0})'}" />
                        </StackPanel>
                    </DataTemplate>
 			   </ComboBox.ItemTemplate>

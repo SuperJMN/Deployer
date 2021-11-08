@@ -3,6 +3,7 @@ using System.Reactive;
 using CSharpFunctionalExtensions;
 using Deployer.Wim;
 using ReactiveUI;
+using Zafiro.System.Windows;
 
 namespace Deployer.Gui.ViewModels.Design
 {
@@ -19,7 +20,7 @@ namespace Deployer.Gui.ViewModels.Design
             {
                 Index = 1,
                 Build = "123.456",
-                Architecture = MyArchitecture.Arm64,
+                Architecture = ProcessorArchitecture.Arm64,
                 DisplayName = "Windows 10 Pro"
             },
         };

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zafiro.Core.Pending\Zafiro.Core.Pending.csproj" />
+    <ProjectReference Include="..\Zafiro.System.Windows\Zafiro.System.Windows.csproj" />
   </ItemGroup>
 
 </Project>

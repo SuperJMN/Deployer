@@ -11,7 +11,7 @@
 	</Design.DataContext>
 
 	<StackPanel>
-		<DockPanel IsEnabled="{Binding IsUnlocked}">
+		<DockPanel>
 			<NumericUpDown DockPanel.Dock="Right" Minimum="0" Value="{Binding Value}" />
 			<TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
 		</DockPanel>

@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using CSharpFunctionalExtensions;
 using Serilog;
 using Zafiro.Core.Pending;
+using Zafiro.System.Windows;
 
 namespace Deployer.Wim
 {
@@ -45,19 +46,19 @@ namespace Deployer.Wim
             };
         }
 
-        private static Result<MyArchitecture> GetArchitecture(string str)
+        private static Result<ProcessorArchitecture> GetArchitecture(string str)
         {
             switch (str)
             {
                 case "0":
-                    return MyArchitecture.X86;
+                    return ProcessorArchitecture.X86;
                 case "9":
-                    return MyArchitecture.X64;
+                    return ProcessorArchitecture.Amd64;
                 case "12":
-                    return MyArchitecture.Arm64;
+                    return ProcessorArchitecture.Arm64;
             }
 
-            return Result.Failure<MyArchitecture>($"Cannot find architecture '{str}' is unknown");
+            return Result.Failure<ProcessorArchitecture>($"Cannot find architecture '{str}' is unknown");
         }
 
         protected Stream GetXmlMetadataStream(Stream wim)
