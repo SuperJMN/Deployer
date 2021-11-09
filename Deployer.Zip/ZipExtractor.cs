@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 using SharpCompress.Archives.Zip;
@@ -13,9 +14,9 @@ namespace Deployer.Compression
 {
     public class ZipExtractor : IZipExtractor
     {
-        private readonly IFileSystemOperations fileSystemOperations;
+        private readonly IFileSystem fileSystemOperations;
 
-        public ZipExtractor(IFileSystemOperations fileSystemOperations)
+        public ZipExtractor(IFileSystem fileSystemOperations)
         {
             this.fileSystemOperations = fileSystemOperations;
         }
@@ -86,9 +87,9 @@ namespace Deployer.Compression
 
                 var destFile = Path.Combine(destination, filePath.Replace("/", "\\"));
                 var dir = Path.GetDirectoryName(destFile);
-                if (!fileSystemOperations.DirectoryExists(dir))
+                if (!fileSystemOperations.Directory.Exists(dir))
                 {
-                    fileSystemOperations.CreateDirectory(dir);
+                    fileSystemOperations.Directory.CreateDirectory(dir);
                 }
 
                 using (var destStream = File.Open(destFile, FileMode.OpenOrCreate))

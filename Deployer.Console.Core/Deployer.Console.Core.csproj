@@ -5,13 +5,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Iridio.Runtime" Version="2.1.28" />
+		<PackageReference Include="Iridio.Runtime" Version="3.0.10" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 		<PackageReference Include="Serilog.Sinks.SpectreConsole" Version="0.1.1" />
 		<PackageReference Include="Spectre.Console" Version="0.42.0" />
 		<PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
-		<PackageReference Include="Zafiro.Network" Version="2.4.17" />
+		<PackageReference Include="Zafiro.Network" Version="3.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>

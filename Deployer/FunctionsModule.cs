@@ -74,8 +74,6 @@ namespace Deployer
             builder.RegisterType<ZipExtractor>().As<IZipExtractor>();
             builder.RegisterType<Downloader>().As<IDownloader>();
             builder.RegisterType<FileSystem>().As<IFileSystem>();
-            builder.RegisterType<FileSystemOperations>().As<IFileSystemOperations>();
-            builder.RegisterType<ZipExtractor>().As<IZipExtractor>();
             builder.RegisterType<Storage>().As<IStorage>();
             builder.RegisterType<BcdInvoker>().As<IBcdInvoker>();
             builder.RegisterType<BootCreator>().As<IBootCreator>();

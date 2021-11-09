@@ -10,7 +10,7 @@ namespace Deployer.Gui.Views
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+            //this.AttachDevTools();
 #endif
         }
 

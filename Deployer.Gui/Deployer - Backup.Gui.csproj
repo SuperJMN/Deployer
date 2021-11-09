@@ -15,9 +15,12 @@
     <PackageReference Include="Avalonia" Version="0.10.10" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.10" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.11.0" />
     <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+    <PackageReference Include="Zafiro.Network" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deployer.Avalonia\Deployer.Avalonia.csproj" />

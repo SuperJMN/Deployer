@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Iridio.Runtime" Version="2.1.28" />
+		<PackageReference Include="Iridio.Runtime" Version="3.0.10" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 		<PackageReference Include="Serilog.Sinks.SpectreConsole" Version="0.1.1" />
