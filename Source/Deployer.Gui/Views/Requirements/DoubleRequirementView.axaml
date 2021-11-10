@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             mc:Ignorable="d" d:DesignWidth="800"
+             x:Class="Deployer.Gui.Views.Requirements.DoubleRequirementView">
+    <Design.DataContext>
+		<design:DoubleRequirementViewModelDesign />
+    </Design.DataContext>
+
+    <DockPanel>
+		<NumericUpDown DockPanel.Dock="Right" Value="{Binding Value}" 
+                       Minimum="{Binding Minimum}" 
+                       Maximum="{Binding Maximum}" 
+                       ClipValueToMinMax="True" />
+		<TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
+    </DockPanel>
+</UserControl>

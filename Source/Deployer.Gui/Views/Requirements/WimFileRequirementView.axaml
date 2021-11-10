@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:gui="clr-namespace:Deployer.Gui"
+             xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             xmlns:wim="clr-namespace:Deployer.Wim;assembly=Deployer.Wim"
+             mc:Ignorable="d" d:DesignWidth="800" 
+             x:Class="Deployer.Gui.Views.Requirements.WimFileRequirementView">
+
+	<Design.DataContext>
+		<design:WimFileRequirementViewModelDesign />
+    </Design.DataContext>
+
+	<UserControl.Resources>
+		<gui:MaybeConverter x:Key="MaybeConverter" />
+    </UserControl.Resources>
+
+    <StackPanel Spacing="10">
+        <TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
+		<StackPanel Orientation="Vertical" Spacing="8">
+			<DockPanel>
+				<Button Margin="4" DockPanel.Dock="Right" Content="Browse" Command="{Binding Browse}" />
+				<TextBox Text="{Binding WimFilePath, Converter={StaticResource MaybeConverter}}" />
+			</DockPanel>
+			<ComboBox Items="{Binding Images}" SelectedItem="{Binding SelectedImage, Mode=TwoWay, Converter={StaticResource MaybeConverter}}">
+               <ComboBox.ItemTemplate>
+                   <DataTemplate>
+                       <StackPanel Orientation="Horizontal" Spacing="4">
+                           <TextBlock FontWeight="Bold" Text="{Binding Index, StringFormat='{}{0}:'}" />
+                           <TextBlock Text="{Binding DisplayName}" />
+                           <TextBlock Text="{Binding Architecture}" />
+                           <TextBlock Text="{Binding Build, StringFormat='(build {0})'}" />
+                       </StackPanel>
+                   </DataTemplate>
+			   </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+	</StackPanel>
+
+
+</UserControl>
