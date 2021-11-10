@@ -10,7 +10,7 @@ namespace Deployer.Functions.Unzip
 {
     public class UnzipRoot : UnzipBase
     {
-        public UnzipRoot(IZipExtractor extractor, IDownloader downloader, IFileSystem fileSystem, IExecutionContext executionContext) : base(
+        public UnzipRoot(IZipExtractor extractor, IDownloader downloader, IFileSystem fileSystem, ExecutionContext executionContext) : base(
             extractor,
             downloader, fileSystem, executionContext)
         {

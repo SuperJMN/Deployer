@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
+using Deployer.Functions.Core;
 using Iridio.Runtime;
 
 namespace Deployer
@@ -11,5 +12,6 @@ namespace Deployer
         Task<Result<ExecutionSummary, IridioError>> Run(string path, IDictionary<string, object> initialState);
         Result<BuildArtifact, IridioError> Check(string path);
         IObservable<string> Messages { get; }
+        public ExecutionContext ExecutionContext { get; }
     }
 }

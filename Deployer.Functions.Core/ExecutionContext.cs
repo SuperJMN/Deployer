@@ -2,7 +2,7 @@
 
 namespace Deployer.Functions.Core
 {
-    public class ExecutionContext : IExecutionContext
+    public class ExecutionContext
     {
         public IOperationProgress Operation { get; } = new OperationProgress();
     }

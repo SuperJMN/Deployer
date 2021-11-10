@@ -7,9 +7,9 @@ namespace Deployer.Functions
     public class ApplyWindowsImage : DeployerFunction
     {
         private readonly IWindowsImageService windowsImageService;
-        private readonly IExecutionContext executionContext;
+        private readonly ExecutionContext executionContext;
 
-        public ApplyWindowsImage(IWindowsImageService windowsImageService, IExecutionContext executionContext)
+        public ApplyWindowsImage(IWindowsImageService windowsImageService, ExecutionContext executionContext)
         {
             this.windowsImageService = windowsImageService;
             this.executionContext = executionContext;

@@ -1,0 +1,120 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:gui="clr-namespace:Deployer.Gui"
+             xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             xmlns:converters="clr-namespace:Deployer.Gui.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="Deployer.Gui.Views.StepsView">
+
+	<Design.DataContext>
+		<design:MainViewModelDesign />
+	</Design.DataContext>
+
+	<UserControl.Styles>
+        <Style Selector="TextBlock.Title">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+    </UserControl.Styles>
+
+	<UserControl.Resources>
+		<converters:BitmapFromStringConverter x:Key="BitmapFromStringConverter" />
+	</UserControl.Resources>
+
+    <Grid Margin="10" IsEnabled="{Binding !IsBusy}" RowDefinitions="Auto,Auto,*">
+        <DockPanel Margin="8">
+
+            <TextBlock DockPanel.Dock="Top" Classes="Title">1. Choose the target device:</TextBlock>
+
+            <ListBox Items="{Binding Devices}"
+                     SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.Styles>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel ItemWidth="140" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="64,*" Margin="4">
+                            <Image
+                                DataContext="{Binding Icon, Converter={StaticResource BitmapFromStringConverter}}"
+                                Source="{Binding Result}" VerticalAlignment="Bottom"
+                                HorizontalAlignment="Center" />
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Grid.Row="1" Margin="0,10,0,0"
+                                       Text="{Binding FriendlyName}" VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Margin="9">
+            <TextBlock DockPanel.Dock="Top" Classes="Title">2. Choose the type of deployment:</TextBlock>
+
+            <StackPanel>
+                <ComboBox VerticalAlignment="Center" Items="{Binding SelectedDevice.Deployments}"
+                          HorizontalAlignment="Stretch"
+                          SelectedItem="{Binding SelectedDevice.SelectedDeployment, Mode=TwoWay}"
+                          HorizontalContentAlignment="Stretch">
+
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    DataContext="{Binding Icon, Converter={StaticResource BitmapFromStringConverter}}"
+                                    Source="{Binding Result}" VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10">
+                                    <TextBlock FontWeight="Bold" Text="{Binding Title}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Description}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Margin="9">
+            <TextBlock DockPanel.Dock="Top" Classes="Title">3. Specify additional information:</TextBlock>
+            <ScrollViewer>
+                <StackPanel>
+                    <ItemsControl DataContext="{Binding SelectedDevice.SelectedDeployment.Requirements}"
+                                  Items="{Binding Requirements}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="8" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource ButtonBackground}" BorderThickness="1" Padding="8" CornerRadius="8">
+                                    <ContentControl Content="{Binding}"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+
+
+</UserControl>

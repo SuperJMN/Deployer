@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExtendedXmlSerializer" Version="3.7.6" />
+    <PackageReference Include="System.IO.Abstractions" Version="13.2.47" />
+  </ItemGroup>
+
+</Project>

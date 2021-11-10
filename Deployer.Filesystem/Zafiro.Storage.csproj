@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ByteSize" Version="2.1.0" />
+    <PackageReference Include="ByteSize" Version="2.1.1" />
     <PackageReference Include="DumpExtensions" Version="2.0.0" />
     <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="Zafiro.Core" Version="2.4.17" />
+    <PackageReference Include="Zafiro.Core" Version="3.0.4" />
   </ItemGroup>
 
 </Project>
