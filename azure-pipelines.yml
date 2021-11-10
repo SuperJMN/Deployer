@@ -37,3 +37,12 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Deployer GUI'
     publishLocation: 'Container'
+
+- task: GitHubRelease@1
+  displayName: Create GitHub Release
+  inputs:    
+    gitHubConnection: 'Github'
+    repositoryName: 'SuperJMN/Deployer'
+    action: 'create'
+    target: 'master'
+    title: 'Deployer'
