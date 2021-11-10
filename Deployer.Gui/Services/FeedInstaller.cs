@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
+using CSharpFunctionalExtensions;
 using Deployer.Compression;
 using Zafiro.Network;
 
@@ -18,9 +19,12 @@ namespace Deployer.Gui
             this.deployer = deployer;
         }
 
-        public async Task Install()
+        public async Task<Result> Install()
         {
-            await deployer.Run("Bootstrap.txt", new Dictionary<string, object>());
+            var result = (await deployer.Run("Bootstrap.txt", new Dictionary<string, object>()))
+                .Match(summary => Result.Success(), e => Result.Failure("CCCC"));
+
+            return result;
         }
     }
 }

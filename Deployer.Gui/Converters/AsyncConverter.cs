@@ -24,15 +24,15 @@ namespace Deployer.Gui
 
         private class GenericAsyncViewModel : INotifyPropertyChanged
         {
-            private T _result;
+            private T result;
             public event PropertyChangedEventHandler PropertyChanged;
 
             public T Result
             {
-                get => _result;
+                get => result;
                 set
                 {
-                    _result = value;
+                    result = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Result)));
                 }
             }

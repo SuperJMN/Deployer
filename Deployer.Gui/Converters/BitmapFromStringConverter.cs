@@ -2,36 +2,65 @@ using System;
 using System.Globalization;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using CSharpFunctionalExtensions;
+using Zafiro.Core.Pending;
 using Zafiro.Network;
 
-namespace Deployer.Gui
+namespace Deployer.Gui.Converters
 {
     public class BitmapFromStringConverter : AsyncConverter<Bitmap>
     {
-        private static readonly HttpClientFactory factory = new();
-        private readonly MemoryCache objectCache = new("bitmaps");
+        private static readonly MemoryCache ObjectCache = new("bitmaps");
+        private static readonly Downloader Downloader;
+        private static readonly WriteableBitmap DefaultBitmap;
 
-        public override async Task<Bitmap> AsyncConvert(object value, Type targetType, object parameter, CultureInfo culture)
+        static BitmapFromStringConverter()
         {
-            var uriString = (string)value;
-            var bmp = objectCache[uriString];
+            DefaultBitmap = new WriteableBitmap(PixelSize.FromSize(new Size(1, 1), 1), Vector.One, PixelFormat.Rgb565,
+                AlphaFormat.Opaque);
+            Downloader = new Downloader(new HttpClientFactory());
+        }
 
-            if (bmp is null)
+        public override async Task<Bitmap> AsyncConvert(object value, Type targetType, object parameter,
+            CultureInfo culture)
+        {
+            var uri = new Uri((string) value);
+
+            return (await FromCache(uri)
+                .Or(async () => await FromSource(uri)))
+                .Do(bitmap => SaveToCache(bitmap, uri))
+                .GetValueOrDefault(DefaultBitmap);
+        }
+
+        private static void SaveToCache(Bitmap bmp, Uri uri)
+        {
+            ObjectCache[uri.ToString()] = bmp;
+        }
+
+        private static Maybe<Bitmap> FromCache(Uri uri)
+        {
+            var bmp = ObjectCache[uri.ToString()];
+            if (bmp is null) return Maybe.None;
+
+            var bitmap = (Bitmap) bmp;
+            return Maybe<Bitmap>.From(bitmap);
+        }
+
+        private static async Task<Maybe<Bitmap>> FromSource(Uri uri)
+        {
+            try
             {
-                var downloader = new Downloader(factory);
-
-                var uri = new Uri(uriString);
-                var stream = await downloader.GetStream(uri);
+                var stream = await Downloader.GetStream(uri);
                 var bitmap = new Bitmap(stream);
-                objectCache.Add(uriString, bitmap, new CacheItemPolicy
-                {
-                    SlidingExpiration = TimeSpan.FromDays(1)
-                });
                 return bitmap;
             }
-
-            return (Bitmap)bmp;
+            catch
+            {
+                return Maybe.None;
+            }
         }
     }
 }

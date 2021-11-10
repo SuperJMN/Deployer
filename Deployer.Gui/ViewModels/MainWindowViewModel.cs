@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using CSharpFunctionalExtensions;
 using Deployer.Gui.ViewModels.Messages;
 using Deployer.Library;
 using ReactiveUI;
@@ -23,29 +24,30 @@ namespace Deployer.Gui.ViewModels
             OperationStatus = operationStatus;
 
             Install = ReactiveCommand.CreateFromTask(feedInstaller.Install);
-            Install.Execute().Subscribe();
-
-            Fetch = ReactiveCommand.CreateFromObservable(() =>
-                Install.Execute()
-                    .Select(_ => repository.Get()
-                        .Select(deviceViewModelFactory)
-                        .ToList()));
-
+            Fetch = CreateFetch(deviceViewModelFactory, repository);
             devices = Fetch.ToProperty(this, x => x.Devices);
 
-            Fetch.Execute().Subscribe();
             MessageBus.Current.Listen<StatusMessageViewModel>().Subscribe(m => StatusMessage = m);
             MessageBus.Current.Listen<DeploymentStart>().Subscribe(m =>
             {
                 StatusMessage = null;
                 IsBusy = true;
             });
-
-
             MessageBus.Current.Listen<DeploymentFinished>().Subscribe(m => IsBusy = false);
+
+            Fetch.Execute().Subscribe();
         }
 
-        public ReactiveCommand<Unit, Unit> Install { get; }
+        private ReactiveCommand<Unit, List<DeviceViewModel>> CreateFetch(Func<Device, DeviceViewModel> deviceViewModelFactory, IDeviceRepository repository)
+        {
+            return ReactiveCommand.CreateFromObservable(() =>
+                Install.Execute()
+                    .Select(result => result.Match(repository.Get, _ => Enumerable.Empty<Device>())
+                        .Select(deviceViewModelFactory)
+                        .ToList()));
+        }
+
+        public ReactiveCommand<Unit, Result> Install { get; }
 
         public bool IsBusy
         {

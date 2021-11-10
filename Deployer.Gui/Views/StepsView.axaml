@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:gui="clr-namespace:Deployer.Gui"
              xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             xmlns:converters="clr-namespace:Deployer.Gui.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="Deployer.Gui.Views.StepsView">
 
@@ -19,7 +20,7 @@
     </UserControl.Styles>
 
 	<UserControl.Resources>
-		<gui:BitmapFromStringConverter x:Key="BitmapFromStringConverter" />
+		<converters:BitmapFromStringConverter x:Key="BitmapFromStringConverter" />
 	</UserControl.Resources>
 
     <Grid Margin="10" IsEnabled="{Binding !IsBusy}" RowDefinitions="Auto,Auto,*">
