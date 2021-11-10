@@ -39,9 +39,12 @@ steps:
     publishLocation: 'Container'
 
 - task: GitHubRelease@1
-  displayName: Create GitHub Release
-  inputs:    
+  inputs:
+    gitHubConnection: 'github.com_SuperJMN'
     repositoryName: 'SuperJMN/Deployer'
     action: 'create'
     target: 'master'
+    tagSource: 'gitTag'
     title: 'Deployer'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
