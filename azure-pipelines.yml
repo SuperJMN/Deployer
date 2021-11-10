@@ -41,7 +41,6 @@ steps:
 - task: GitHubRelease@1
   displayName: Create GitHub Release
   inputs:    
-    gitHubConnection: 'github.com_SuperJMN'
     repositoryName: 'SuperJMN/Deployer'
     action: 'create'
     target: 'master'
