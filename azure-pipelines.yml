@@ -24,10 +24,10 @@ steps:
     version: '6.0.x'
 
 - script: 
-    dotnet publish
+    dotnet publish Deployer.Gui -c Release
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)'
+    SourceFolder: 'Deployer.Gui\bin\release'
     Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)'
