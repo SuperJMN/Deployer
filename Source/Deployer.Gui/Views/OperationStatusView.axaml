@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:Deployer.Gui.Views"
+             xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Deployer.Gui.Views.OperationStatusView">
+
+    <Design.DataContext>
+		<design:OperationStatusViewModelDesign />
+    </Design.DataContext>
+
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+        <TextBlock Text="{Binding Message}" TextAlignment="Center" FontWeight="Bold" FontSize="14" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
+        <views:ProgressView Margin="8" HorizontalAlignment="Center"/>
+    </StackPanel>
+</UserControl>

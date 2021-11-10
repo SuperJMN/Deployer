@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DumpExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deployer.Filesystem\Zafiro.Storage.csproj" />
+    <ProjectReference Include="..\Zafiro.Storage.Gpt\Zafiro.Storage.Windows.Gpt.csproj" />
+  </ItemGroup>
+
+</Project>
