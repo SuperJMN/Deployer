@@ -1,0 +1,58 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- task: gitversion/setup@0
+  inputs:
+    versionSpec: '5.x'
+
+- task: gitversion/execute@0
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
+
+- script:
+    dotnet publish Source\Deployer.Gui -c Release -a x64 -o Deployer.Gui\x64
+
+- task: ArchiveFiles@2
+  displayName: ZIP GUI
+  inputs:
+    rootFolderOrFile: 'Deployer.Gui\x64'
+    includeRootFolder: false    
+    archiveFile: '$(Build.ArtifactStagingDirectory)\Deployer GUI.zip'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Deployer GUI.zip'
+    ArtifactName: 'Deployer GUI'
+    publishLocation: 'Container'
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_SuperJMN'
+    repositoryName: 'SuperJMN/Deployer'
+    action: 'create'
+    target: 'master'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(FullSemVer)'
+    title: 'Deployer'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
