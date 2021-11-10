@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+             mc:Ignorable="d" d:DesignWidth="800"
+             x:Class="Deployer.Gui.Views.Requirements.DiskRequirementView">
+
+	<Design.DataContext>
+		<design:DiskRequirementViewModelDesign />
+	</Design.DataContext>
+
+	<StackPanel>
+		<DockPanel>
+			<NumericUpDown DockPanel.Dock="Right" Minimum="0" Value="{Binding Value}" />
+			<TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
+		</DockPanel>
+		<CheckBox Margin="10" IsChecked="{Binding IsUnlocked}">
+			<StackPanel>
+				<TextBlock FontWeight="Bold" >
+					I'm sure this is the correct disk number.
+				</TextBlock>
+				<TextBlock TextWrapping="Wrap">
+                    I'm aware and I assume the possible issues that can happen selecting the wrong disk number.
+				</TextBlock>
+			</StackPanel>
+		</CheckBox>
+	</StackPanel>
+
+</UserControl>

@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Deployer.Gui.Views"
+        xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="900"
+        x:Class="Deployer.Gui.Views.MainWindow"
+        Icon="/Assets/Icon.png"
+        Width="900"
+        Height="900"
+        WindowStartupLocation="CenterScreen"
+        Title="Deployer">
+
+	<Design.DataContext>
+		<design:MainViewModelDesign />
+	</Design.DataContext>
+
+	<Window.Styles>
+		<Style Selector="TextBlock.Error">
+			<Setter Property="FontWeight" Value="Bold" />
+		</Style>
+	</Window.Styles>
+
+	<Grid>
+
+		<DockPanel>
+			<StackPanel DockPanel.Dock="Top" Margin="8">
+				<TextBlock FontSize="30" TextAlignment="Center">Deployer</TextBlock>
+				<Image Margin="4" Source="/Assets/Icon.png" Width="64" />
+			</StackPanel>
+			<ContentControl Margin="8" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
+            <Button Margin="18" DockPanel.Dock="Bottom" VerticalAlignment="Center" Command="{Binding SelectedDevice.SelectedDeployment.Deploy}" HorizontalAlignment="Center">Deploy</Button>
+			<views:StepsView />
+		</DockPanel>
+
+		<Border Background="White"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                CornerRadius="10"
+                BorderBrush="Gray" BorderThickness="1"
+                Padding="10"
+                IsVisible="{Binding IsBusy}" >
+			<views:OperationStatusView DataContext="{Binding OperationStatus}"/>
+		</Border>
+
+	</Grid>
+
+
+</Window>

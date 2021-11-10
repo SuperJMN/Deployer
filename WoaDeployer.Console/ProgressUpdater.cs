@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Disposables;
 using CSharpFunctionalExtensions;
-using Deployer.Functions.Core;
 using Spectre.Console;
 using Zafiro.Core;
 using Zafiro.Core.ProgressReporting;
@@ -13,7 +12,7 @@ namespace Deployer.Console
         private readonly CompositeDisposable disposable = new();
         private Maybe<ProgressTask> currentTask = Maybe<ProgressTask>.None;
 
-        public ProgressUpdater(IDeployer deployer, IExecutionContext executionContext, ProgressContext ctx)
+        public ProgressUpdater(IDeployer deployer, ProgressContext ctx)
         {
             deployer.Messages
                 .Subscribe(s =>
@@ -29,7 +28,7 @@ namespace Deployer.Console
                     currentTask.Execute(p => { p.IsIndeterminate = true; });
                 }).DisposeWith(disposable);
 
-            executionContext.Operation.Progress.Subscribe(progress =>
+            deployer.ExecutionContext.Operation.Progress.Subscribe(progress =>
             {
                 switch (progress)
                 {

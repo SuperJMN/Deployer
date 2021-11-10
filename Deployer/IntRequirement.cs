@@ -4,7 +4,7 @@ namespace Deployer
 {
     public class IntRequirement : Requirement
     {
-        public IntRequirement(string disk, string description) : base(disk)
+        public IntRequirement(string key, string description) : base(key, description)
         {
         }
 

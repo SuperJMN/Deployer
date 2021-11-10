@@ -1,0 +1,5 @@
+﻿Main
+{
+	RemoveDirectory("Feed");
+	UnzipRoot(GitHub("WOA-Project", "Deployment-Feed", "testing"), ".", "Feed");
+}

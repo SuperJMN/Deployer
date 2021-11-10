@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 	</PropertyGroup>
 
@@ -10,14 +10,14 @@
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
 		<PackageReference Include="DumpExtensions" Version="2.0.0" />
 		<PackageReference Include="Octokit.Reactive" Version="0.47.0" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.1.15" />
 		<PackageReference Include="Spectre.Console" Version="0.42.0" />
-		<PackageReference Include="Zafiro.Network" Version="2.4.17" />
-		<PackageReference Include="Zafiro.Reflection" Version="2.4.17" />
-		<PackageReference Include="Iridio" Version="2.1.27" />
+		<PackageReference Include="Zafiro.Network" Version="3.0.4" />
+		<PackageReference Include="Zafiro.Reflection" Version="3.0.4" />
+		<PackageReference Include="Iridio" Version="3.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,6 +29,7 @@
 		</ProjectReference>
 		<ProjectReference Include="..\Deployer.Zip\Deployer.Compression.csproj" />
 		<ProjectReference Include="..\Zafiro.Clients.AzureDevOps\Zafiro.Tools.AzureDevOps.csproj" />
+		<ProjectReference Include="..\Zafiro.Core.Pending\Zafiro.Core.Pending.csproj" />
 		<ProjectReference Include="..\Zafiro.Storage.Implementation\Zafiro.Storage.Windows.csproj" />
 		<ProjectReference Include="..\Zafiro.System.Windows\Zafiro.System.Windows.csproj" />
 	</ItemGroup>

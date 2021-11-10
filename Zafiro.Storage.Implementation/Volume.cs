@@ -22,7 +22,7 @@ namespace Zafiro.Storage.Windows
 
         public async Task<ICollection<DriverMetadata>> GetDrivers()
         {
-            var results = await PowerShellMixin.ExecuteScript($"Get-WindowsDriver -Path {Root}");
+            var results = await PowerShellFacade.ExecuteScript($"Get-WindowsDriver -Path {Root}");
 
             var disks = results
                 .Select(ToDriverMetadata);
@@ -46,7 +46,7 @@ namespace Zafiro.Storage.Windows
         public async Task Format(FileSystemFormat fileSystemFormat, string label)
         {
             var part = await this.Partition.GetPsPartition();
-            await PowerShellMixin.ExecuteCommand("Format-Volume",
+            await PowerShellFacade.ExecuteCommand("Format-Volume",
                           ("Partition", part),
                           ("Force", null),
                           ("Confirm", false),

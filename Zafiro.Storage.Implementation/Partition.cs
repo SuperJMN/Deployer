@@ -27,7 +27,7 @@ namespace Zafiro.Storage.Windows
         {
             var part = await this.GetPsPartition();
             var letter = GetFreeDriveLetter();
-            await PowerShellMixin.ExecuteCommand("Set-Partition",
+            await PowerShellFacade.ExecuteCommand("Set-Partition",
                 ("InputObject", part),
                 ("NewDriveLetter", letter)
             );
@@ -65,7 +65,7 @@ namespace Zafiro.Storage.Windows
             }
 
             var part = await this.GetPsPartition();
-            await PowerShellMixin.ExecuteCommand("Set-Partition",
+            await PowerShellFacade.ExecuteCommand("Set-Partition",
                 ("InputObject", part),
                 ("GptType", $"{{{gptType.Guid}}}")
             );
@@ -78,7 +78,7 @@ namespace Zafiro.Storage.Windows
         {
             Log.Debug("Getting volume of {Partition}", this);
 
-            var results = await PowerShellMixin.ExecuteCommand("Get-Volume",
+            var results = await PowerShellFacade.ExecuteCommand("Get-Volume",
                 ("Partition", await this.GetPsPartition()));
 
             var result = results.FirstOrDefault()?.ImmediateBaseObject;
@@ -113,13 +113,13 @@ namespace Zafiro.Storage.Windows
             Log.Verbose("Resizing partition {Partition} to {Size}", this, size);
 
             var psPart = await this.GetPsPartition();
-            await PowerShellMixin.ExecuteCommand("Resize-Partition", ("InputObject", psPart), ("Size", sizeBytes));
+            await PowerShellFacade.ExecuteCommand("Resize-Partition", ("InputObject", psPart), ("Size", sizeBytes));
         }
 
         public async Task RemoveDriveLetter()
         {
             var part = await this.GetPsPartition();
-            await PowerShellMixin.ExecuteCommand("Remove-PartitionAccessPath",
+            await PowerShellFacade.ExecuteCommand("Remove-PartitionAccessPath",
                 ("InputObject", part),
                 ("AccessPath", Root)
             );
@@ -128,7 +128,7 @@ namespace Zafiro.Storage.Windows
         public async Task Remove()
         {
             var part = await this.GetPsPartition();
-            await PowerShellMixin.ExecuteCommand("Remove-Partition", ("InputObject", part), ("Confirm", false));
+            await PowerShellFacade.ExecuteCommand("Remove-Partition", ("InputObject", part), ("Confirm", false));
         }
 
         public override string ToString()

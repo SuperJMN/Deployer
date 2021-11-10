@@ -16,9 +16,9 @@ namespace Deployer.Functions.Unzip.Core
         private readonly IDownloader downloader;
         protected readonly IOperationProgress Progress;
         private readonly IFileSystem fileSystem;
-        private readonly IExecutionContext executionContext;
+        private readonly ExecutionContext executionContext;
 
-        public UnzipBase(IZipExtractor extractor, IDownloader downloader, IFileSystem fileSystem, IExecutionContext executionContext)
+        public UnzipBase(IZipExtractor extractor, IDownloader downloader, IFileSystem fileSystem, ExecutionContext executionContext)
         {
             Extractor = extractor;
             this.downloader = downloader;
@@ -35,8 +35,7 @@ namespace Deployer.Functions.Unzip.Core
                 Log.Warning("{Url} already downloaded. Skipping download.", url);
                 return;
             }
-
-
+            
             using (var stream = await downloader.GetStream(new Uri(url), executionContext.Operation))
             {
                 await Extract(stream, finalDir);
