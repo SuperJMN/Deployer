@@ -31,3 +31,9 @@ steps:
     SourceFolder: 'Deployer.Gui\bin\release'
     Contents: '**'
     TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Deployer GUI'
+    publishLocation: 'Container'
