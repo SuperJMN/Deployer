@@ -25,12 +25,17 @@
 	<Grid>
 
 		<DockPanel>
-			<StackPanel DockPanel.Dock="Top" Margin="8">
-				<TextBlock FontSize="30" TextAlignment="Center">Deployer</TextBlock>
-				<Image Margin="4" Source="/Assets/Icon.png" Width="64" />
-			</StackPanel>
+			<Grid DockPanel.Dock="Top" >
+				<StackPanel Margin="8">
+					<TextBlock FontSize="30" TextAlignment="Center">Deployer</TextBlock>
+					<Image Margin="4" Source="/Assets/Icon.png" Width="64" />
+				</StackPanel>
+				<Button VerticalAlignment="Top" Background="Transparent" Command="{Binding SupportMyWork}" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Right">
+                    <TextBlock VerticalAlignment="Center" Margin="4">Wanna support my work 😍?</TextBlock>
+				</Button>
+			</Grid>
 			<ContentControl Margin="8" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
-            <Button Margin="18" DockPanel.Dock="Bottom" VerticalAlignment="Center" Command="{Binding SelectedDevice.SelectedDeployment.Deploy}" HorizontalAlignment="Center">Deploy</Button>
+			<Button Margin="18" DockPanel.Dock="Bottom" VerticalAlignment="Center" Command="{Binding SelectedDevice.SelectedDeployment.Deploy}" HorizontalAlignment="Center">Deploy</Button>
 			<views:StepsView />
 		</DockPanel>
 

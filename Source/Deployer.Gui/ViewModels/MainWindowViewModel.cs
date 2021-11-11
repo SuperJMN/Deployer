@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -12,11 +13,11 @@ namespace Deployer.Gui.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public OperationStatusViewModel OperationStatus { get; }
-        private DeviceViewModel selectedDevice = null!;
+        private const string SupportLink = "https://github.com/sponsors/SuperJMN";
         private readonly ObservableAsPropertyHelper<List<DeviceViewModel>> devices;
-        private StatusMessageViewModel statusMessage = null!;
         private bool isBusy;
+        private DeviceViewModel selectedDevice = null!;
+        private StatusMessageViewModel statusMessage = null!;
 
         public MainWindowViewModel(Func<Device, DeviceViewModel> deviceViewModelFactory, IFeedInstaller feedInstaller,
             IDeviceRepository repository, OperationStatusViewModel operationStatus)
@@ -35,17 +36,20 @@ namespace Deployer.Gui.ViewModels
             });
             MessageBus.Current.Listen<DeploymentFinished>().Subscribe(m => IsBusy = false);
 
+            SupportMyWork = ReactiveCommand.Create(() =>
+            {
+                var ps = new ProcessStartInfo(SupportLink)
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                };
+                Process.Start(ps);
+            });
+
             Fetch.Execute().Subscribe();
         }
 
-        private ReactiveCommand<Unit, List<DeviceViewModel>> CreateFetch(Func<Device, DeviceViewModel> deviceViewModelFactory, IDeviceRepository repository)
-        {
-            return ReactiveCommand.CreateFromObservable(() =>
-                Install.Execute()
-                    .Select(result => result.Match(repository.Get, _ => Enumerable.Empty<Device>())
-                        .Select(deviceViewModelFactory)
-                        .ToList()));
-        }
+        public OperationStatusViewModel OperationStatus { get; }
 
         public ReactiveCommand<Unit, Result> Install { get; }
 
@@ -55,9 +59,12 @@ namespace Deployer.Gui.ViewModels
             private set => this.RaiseAndSetIfChanged(ref isBusy, value);
         }
 
+
         public List<DeviceViewModel> Devices => devices.Value;
 
         public ReactiveCommand<Unit, List<DeviceViewModel>> Fetch { get; }
+
+        public ReactiveCommand<Unit, Unit> SupportMyWork { get; }
 
         public DeviceViewModel SelectedDevice
         {
@@ -69,6 +76,16 @@ namespace Deployer.Gui.ViewModels
         {
             get => statusMessage;
             private set => this.RaiseAndSetIfChanged(ref statusMessage, value);
+        }
+
+        private ReactiveCommand<Unit, List<DeviceViewModel>> CreateFetch(
+            Func<Device, DeviceViewModel> deviceViewModelFactory, IDeviceRepository repository)
+        {
+            return ReactiveCommand.CreateFromObservable(() =>
+                Install.Execute()
+                    .Select(result => result.Match(repository.Get, _ => Enumerable.Empty<Device>())
+                        .Select(deviceViewModelFactory)
+                        .ToList()));
         }
     }
 }
