@@ -18,16 +18,16 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '6.0.x'
-
 - task: gitversion/setup@0
   inputs:
     versionSpec: '5.x'
 
 - task: gitversion/execute@0
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.0.x'
 
 - script:
     dotnet publish Deployer.Gui -c Release -a x64 -o Deployer.Gui\x64
