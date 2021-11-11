@@ -30,7 +30,7 @@ steps:
     version: '6.0.x'
 
 - script:
-    dotnet publish Deployer.Gui -c Release -a x64 -o Deployer.Gui\x64
+    dotnet publish Source\Deployer.Gui -c Release -a x64 -o Deployer.Gui\x64
 
 - task: ArchiveFiles@2
   displayName: ZIP GUI
