@@ -32,15 +32,16 @@ steps:
 - script:
     dotnet publish Deployer.Gui -c Release -a x64 -o Deployer.Gui\x64
 
-- task: CopyFiles@2
+- task: ArchiveFiles@2
+  displayName: ZIP GUI
   inputs:
-    SourceFolder: 'Deployer.Gui\x64'
-    Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    rootFolderOrFile: 'Deployer.Gui\bin\publish'
+    includeRootFolder: false    
+    archiveFile: '$(Build.ArtifactStagingDirectory)\Deployer GUI.zip'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Deployer GUI.zip'
     ArtifactName: 'Deployer GUI'
     publishLocation: 'Container'
 
