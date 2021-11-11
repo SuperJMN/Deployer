@@ -23,6 +23,12 @@ steps:
     packageType: 'sdk'
     version: '6.0.x'
 
+- task: gitversion/setup@0
+  inputs:
+    versionSpec: '5.x'
+  
+- task: gitversion/execute@0
+
 - script: 
     dotnet publish Deployer.Gui -c Release -a x64 -o Deployer.Gui\x64
 
@@ -44,7 +50,8 @@ steps:
     repositoryName: 'SuperJMN/Deployer'
     action: 'create'
     target: 'master'
-    tagSource: 'gitTag'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(FullSemVer)'
     title: 'Deployer'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
