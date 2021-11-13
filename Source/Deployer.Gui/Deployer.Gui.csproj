@@ -6,7 +6,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>    
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
     <None Remove=".gitignore" />
     <None Remove="Assets\Hearth.png" />
