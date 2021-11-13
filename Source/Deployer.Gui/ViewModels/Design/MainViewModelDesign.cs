@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using Deployer.Library.Generator;
 using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels.Design
@@ -11,12 +9,13 @@ namespace Deployer.Gui.ViewModels.Design
 
         public MainViewModelDesign()
         {
-            Devices = DefaultStore.Create()
-                .Devices
-                .Select(device => new DeviceViewModelDesign())
-                .ToList();
+            var deviceViewModelDesign = new DeviceViewModelDesign();
+            Devices = new List<DeviceViewModelDesign>()
+            {
+                deviceViewModelDesign,
+            };
 
-            SelectedDevice = Devices.First();
+            SelectedDevice = deviceViewModelDesign;
         }
 
         public List<DeviceViewModelDesign> Devices { get; }
