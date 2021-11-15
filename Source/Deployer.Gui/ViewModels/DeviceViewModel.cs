@@ -51,7 +51,7 @@ namespace Deployer.Gui.ViewModels
         private IObservable<IEnumerable<Requirement>> GetRequirements(Deployment deployment)
         {
             var requirementAnalyzer = new RequirementsAnalyzer();
-            var deploymentScriptPath = fileSystem.Path.Combine(Constants.DeploymentFeed, deployment.ScriptPath);
+            var deploymentScriptPath = fileSystem.Path.Combine(Constants.GetDeploymentFeedPath(fileSystem), deployment.ScriptPath);
 
             return Observable
                 .FromAsync(async () =>

@@ -25,7 +25,7 @@ namespace Deployer.Gui.ViewModels
             OperationStatus = operationStatus;
 
             Install = ReactiveCommand.CreateFromTask(feedInstaller.Install);
-            Fetch = CreateFetch(deviceViewModelFactory, repository);
+            Fetch = CreateFetchCommand(deviceViewModelFactory, repository);
             devices = Fetch.ToProperty(this, x => x.Devices);
 
             MessageBus.Current.Listen<StatusMessageViewModel>().Subscribe(m => StatusMessage = m);
@@ -58,8 +58,7 @@ namespace Deployer.Gui.ViewModels
             get => isBusy;
             private set => this.RaiseAndSetIfChanged(ref isBusy, value);
         }
-
-
+        
         public List<DeviceViewModel> Devices => devices.Value;
 
         public ReactiveCommand<Unit, List<DeviceViewModel>> Fetch { get; }
@@ -78,7 +77,7 @@ namespace Deployer.Gui.ViewModels
             private set => this.RaiseAndSetIfChanged(ref statusMessage, value);
         }
 
-        private ReactiveCommand<Unit, List<DeviceViewModel>> CreateFetch(
+        private ReactiveCommand<Unit, List<DeviceViewModel>> CreateFetchCommand(
             Func<Device, DeviceViewModel> deviceViewModelFactory, IDeviceRepository repository)
         {
             return ReactiveCommand.CreateFromObservable(() =>

@@ -44,7 +44,7 @@ namespace Deployer.Gui.ViewModels
 
         private async Task<Result> ExecuteDeployment(IDeployer deployer)
         {
-            var deploymentScriptPath = fileSystem.Path.Combine(Constants.DeploymentFeed, deployment.ScriptPath);
+            var deploymentScriptPath = fileSystem.Path.Combine(Constants.GetDeploymentFeedPath(fileSystem), deployment.ScriptPath);
             var initialState = CreateInitialState();
 
             MessageBus.Current.SendMessage(new DeploymentStart());

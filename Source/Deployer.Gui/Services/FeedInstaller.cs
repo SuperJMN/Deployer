@@ -2,27 +2,31 @@ using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
-using Deployer.Compression;
-using Zafiro.Network;
+using Deployer.Gui.ViewModels;
+using Serilog;
 
-namespace Deployer.Gui
+namespace Deployer.Gui.Services
 {
     public class FeedInstaller : IFeedInstaller
     {
         private readonly IDeployer deployer;
-        private readonly IZipExtractor zipExtractor;
-        private IFileSystem fileSystem;
-        private IDownloader downloader;
+        private readonly IFileSystem fileSystem;
 
-        public FeedInstaller(IDeployer deployer)
+        public FeedInstaller(IDeployer deployer, IFileSystem fileSystem)
         {
             this.deployer = deployer;
+            this.fileSystem = fileSystem;
         }
 
         public async Task<Result> Install()
         {
-            var result = (await deployer.Run("Bootstrap.txt", new Dictionary<string, object>()))
-                .Match(summary => Result.Success(), e => Result.Failure("CCCC"));
+            
+            var deploymentFeedPath = Constants.GetDeploymentFeedPath(fileSystem);
+            Log.Information("Downloading Deployment Feed. Using {Path} for the files", deploymentFeedPath);
+            var initialState = new Dictionary<string, object> { ["downloadFolder"] = deploymentFeedPath};
+            var run = await deployer.Run("Bootstrap.txt", initialState);
+            var result = run.Match(summary => Result.Success(), e => Result.Failure("Failed to download the Deployment Feed"));
+            Log.Information("Deployment feed downloaded successfully");
 
             return result;
         }
