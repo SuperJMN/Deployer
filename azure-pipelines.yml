@@ -52,7 +52,7 @@ steps:
     action: 'create'
     target: 'master'
     tagSource: 'userSpecifiedTag'
-    tag: '$(FullSemVer)'
+    tag: '$(SemVer)'
     title: 'Deployer'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
