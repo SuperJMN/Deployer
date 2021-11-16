@@ -22,7 +22,7 @@ namespace Deployer.Gui.Services
         {
             
             var deploymentFeedPath = Constants.GetDeploymentFeedPath(fileSystem);
-            Log.Information("Downloading Deployment Feed. Using {Path} for the files", deploymentFeedPath);
+            Log.Information("Downloading Deployment Feed to {Path}", deploymentFeedPath);
             var initialState = new Dictionary<string, object> { ["downloadFolder"] = deploymentFeedPath};
             var run = await deployer.Run("Bootstrap.txt", initialState);
             var result = run.Match(summary => Result.Success(), e => Result.Failure("Failed to download the Deployment Feed"));

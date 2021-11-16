@@ -1,10 +1,10 @@
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using Serilog;
 using System;
 using System.IO;
 using System.Reflection;
+using Zafiro.Tools.AzureDevOps.BuildsModel;
 
 namespace Deployer.Gui
 {
@@ -16,7 +16,6 @@ namespace Deployer.Gui
         [STAThread]
         public static void Main(string[] args)
         {
-            Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             ConfigureLogging();
 
             BuildAvaloniaApp()
@@ -26,10 +25,18 @@ namespace Deployer.Gui
 
         private static void ConfigureLogging()
         {
+            var logsFolderPath = GetLogsFolderPath();
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("Logs\\log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(Path.Combine(logsFolderPath, "Log.txt"), rollingInterval: RollingInterval.Day)
                 .MinimumLevel.Verbose()
                 .CreateLogger();
+
+            Log.Information("Log path set to {Path}", logsFolderPath);
+        }
+        
+        private static string GetLogsFolderPath()
+        {
+            return Path.Combine(Path.GetTempPath(), "Deployer", "Logs");
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.
