@@ -18,8 +18,16 @@ namespace Deployer.Gui
         {
             ConfigureLogging();
 
-            BuildAvaloniaApp()
-                .StartWithClassicDesktopLifetime(args);
+            try
+            {
+                BuildAvaloniaApp()
+                    .StartWithClassicDesktopLifetime(args);
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e, "The application has encountered an unrecoverable error. The application has been shut down");
+                throw;
+            }
         }
 
 
