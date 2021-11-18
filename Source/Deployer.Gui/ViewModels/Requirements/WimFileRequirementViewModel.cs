@@ -41,8 +41,8 @@ namespace Deployer.Gui.ViewModels.Requirements
 
                 var currentApplicationLifetime = (ClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
                 var win=currentApplicationLifetime.MainWindow;
-                var files = await picker.ShowAsync(win);
-                return files.TryFirst();
+                var files = Maybe.From(await picker.ShowAsync(win));
+                return files.Map(paths => paths.First());
             });
 
             var obs = this

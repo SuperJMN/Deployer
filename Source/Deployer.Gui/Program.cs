@@ -30,7 +30,6 @@ namespace Deployer.Gui
             }
         }
 
-
         private static void ConfigureLogging()
         {
             var logsFolderPath = GetLogsFolderPath();
