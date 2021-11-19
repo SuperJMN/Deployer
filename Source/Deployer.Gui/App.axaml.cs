@@ -8,6 +8,7 @@ using Deployer.Compression;
 using Deployer.Functions;
 using Deployer.Functions.Core;
 using Deployer.Functions.Unzip;
+using Deployer.Gui.Services;
 using Deployer.Gui.ViewModels;
 using Deployer.Gui.Views;
 using Deployer.Library;
