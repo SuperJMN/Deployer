@@ -4,27 +4,67 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
              mc:Ignorable="d" d:DesignWidth="800"
-             x:Class="Deployer.Gui.Views.Requirements.DiskRequirementView">
+             x:Class="Deployer.Gui.Views.Requirements.DiskRequirementView"
+             x:Name="UserControl">
 
-	<Design.DataContext>
-		<design:DiskRequirementViewModelDesign />
-	</Design.DataContext>
+    <Design.DataContext>
+        <design:DiskRequirementViewModelDesign />
+    </Design.DataContext>
 
-	<StackPanel>
-		<DockPanel>
-			<NumericUpDown DockPanel.Dock="Right" Minimum="0" Value="{Binding Value}" />
-			<TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
-		</DockPanel>
-		<CheckBox Margin="10" IsChecked="{Binding IsUnlocked}">
-			<StackPanel>
-				<TextBlock FontWeight="Bold" >
-					I'm sure this is the correct disk number.
-				</TextBlock>
-				<TextBlock TextWrapping="Wrap">
-                    I'm aware and I assume the possible issues that can happen selecting the wrong disk number.
-				</TextBlock>
-			</StackPanel>
-		</CheckBox>
-	</StackPanel>
+    <StackPanel Spacing="10">
+
+        <TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
+        
+        <Grid ColumnDefinitions="*,Auto">
+
+            <ComboBox Grid.RowSpan="2" Items="{Binding Disks}" HorizontalAlignment="Stretch"
+                      HorizontalContentAlignment="Stretch"
+                      SelectedItem="{Binding SelectedDisk, Mode=TwoWay}" IsEnabled="{Binding !IsBusy}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="Container" Height="30"
+                              IsVisible="{Binding ElementName=UserControl, Path=!DataContext.IsBusy}"
+                              ColumnDefinitions="Auto,*">
+                            <Image Source="/Assets/drive.png" />
+                            <StackPanel VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal" Spacing="8"
+                                        Margin="10 0 0 0">
+                                <TextBlock Text="{Binding Number, Mode=OneWay}" />
+                                <TextBlock Text="-" />
+                                <TextBlock Text="{Binding FriendlyName, Mode=OneWay}" FontWeight="Bold" />
+                                <TextBlock Text="{Binding Size, Mode=OneWay, StringFormat='{}({0:0})'}" />
+                            </StackPanel>
+                            <TextBlock Margin="10, 0" x:Name="TextBlock" Grid.Column="1" VerticalAlignment="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Grid Grid.Column="0"
+                  IsVisible="{Binding IsBusy}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Center" TextAlignment="Center" Grid.Row="0" Text="Loading..." />
+                <ProgressBar Grid.Row="1" IsIndeterminate="True" />
+            </Grid>
+
+            <Button Margin="10,0" VerticalAlignment="Center" Grid.Column="1" Content="Refresh"
+                    Command="{Binding RefreshDisks}" />
+
+        </Grid>
+
+        <CheckBox Margin="10" IsChecked="{Binding IsUnlocked}">
+            <StackPanel>
+                <TextBlock FontWeight="Bold">
+                    I'm sure this is the correct disk
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap">
+                    I'm aware and I assume the possible issues that can happen selecting the wrong disk number
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+
+    </StackPanel>
 
 </UserControl>

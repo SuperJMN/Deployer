@@ -6,15 +6,16 @@ namespace Deployer.Gui.ViewModels.Requirements
 {
     public abstract class RequirementViewModelBase : ViewModelBase, IRequirementViewModel
     {
-        private readonly Requirement requirement;
-
-        public RequirementViewModelBase(Requirement requirement)
+        private protected RequirementViewModelBase(Requirement requirement)
         {
-            this.requirement = requirement;
+            Requirement = requirement;
         }
 
-        public string Name => requirement.Key;
-        public string Description => requirement.Description;
+        private Requirement Requirement { get; }
+
+        public string Name => Requirement.Key;
+        public string Description => Requirement.Description;
+
         public abstract IEnumerable<(string, object)> FilledRequirements { get; }
         public abstract IObservable<bool> IsValid { get; }
     }
