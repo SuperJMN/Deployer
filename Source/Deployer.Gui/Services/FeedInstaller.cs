@@ -22,13 +22,18 @@ namespace Deployer.Gui.Services
         {
             var deploymentFeedPath = Constants.GetDeploymentFeedPath(fileSystem);
             var bootstrapPath = fileSystem.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            Log.Information("Downloading Deployment Feed to {Path}", deploymentFeedPath);
+            Log.Information("Installing Deployment Feed to {Path}", deploymentFeedPath);
             var initialState = new Dictionary<string, object> { ["downloadFolder"] = deploymentFeedPath};
             var run = await deployer.Run(fileSystem.Path.Combine(bootstrapPath, "Bootstrap.txt"), initialState);
-            var result = run.Match(summary => Result.Success(), e => Result.Failure("Failed to download the Deployment Feed"));
-            Log.Information("Deployment feed downloaded successfully");
-
-            //throw new InvalidOperationException();
+            var result = run.Match(_ =>
+            {
+                Log.Information("Feed installed successfully");
+                return Result.Success();
+            }, e =>
+            {
+                Log.Error("Feed failed to install. Reason: {e}", e.ToString());
+                return Result.Failure("Failed to download the Deployment Feed");
+            });
 
             return result;
         }

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:gui="clr-namespace:Deployer.Gui"
              xmlns:design="clr-namespace:Deployer.Gui.ViewModels.Design"
-             xmlns:wim="clr-namespace:Deployer.Wim;assembly=Deployer.Wim"
              mc:Ignorable="d" d:DesignWidth="800" 
              x:Class="Deployer.Gui.Views.Requirements.WimFileRequirementView">
 
@@ -17,7 +16,7 @@
     </UserControl.Resources>
 
     <StackPanel Spacing="10">
-        <TextBlock VerticalAlignment="Center" Text="{Binding Description}" />
+        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
 		<StackPanel Orientation="Vertical" Spacing="8">
 			<DockPanel>
 				<Button Margin="4" DockPanel.Dock="Right" Content="Browse" Command="{Binding Browse}" />
