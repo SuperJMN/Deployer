@@ -28,8 +28,6 @@ namespace Deployer.Gui.Services
             var result = run.Match(summary => Result.Success(), e => Result.Failure("Failed to download the Deployment Feed"));
             Log.Information("Deployment feed downloaded successfully");
 
-            //throw new InvalidOperationException();
-
             return result;
         }
     }
