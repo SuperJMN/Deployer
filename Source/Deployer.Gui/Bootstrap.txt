@@ -1,11 +1,11 @@
-﻿//Main
+﻿Main
+{
+	RemoveDirectory(downloadFolder);
+	UnzipRoot(GitHub("WOA-Project", "Deployment-Feed"), ".", downloadFolder);
+}
+
+//Main
 //{
 //	RemoveDirectory(downloadFolder);
 //	UnzipRoot(GitHub("WOA-Project", "Deployment-Feed"), ".", downloadFolder);
 //}
-
-Main
-{
-	RemoveDirectory(downloadFolder);
-	CopyDirectory("E:\Repos\WOA-Project\Deployment-Feed", downloadFolder);
-}
