@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using CSharpFunctionalExtensions;
 using Deployer.Wim;
 using ReactiveUI;
+using Unit = System.Reactive.Unit;
 
 namespace Deployer.Gui.ViewModels.Requirements
 {

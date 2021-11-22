@@ -3,3 +3,9 @@
 	RemoveDirectory(downloadFolder);
 	UnzipRoot(GitHub("WOA-Project", "Deployment-Feed"), ".", downloadFolder);
 }
+
+//Main
+//{
+//	RemoveDirectory(downloadFolder);
+//	UnzipRoot(GitHub("WOA-Project", "Deployment-Feed"), ".", downloadFolder);
+//}

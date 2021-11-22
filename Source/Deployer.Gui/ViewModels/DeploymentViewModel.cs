@@ -9,6 +9,7 @@ using Deployer.Gui.ViewModels.Messages;
 using Deployer.Library;
 using Deployer.Wim;
 using ReactiveUI;
+using Zafiro.Storage;
 
 namespace Deployer.Gui.ViewModels
 {
@@ -19,12 +20,12 @@ namespace Deployer.Gui.ViewModels
 
         public DeploymentViewModel(Deployment deployment, IDeployer deployer,
             IEnumerable<Requirement> requirements, IFileSystem fileSystem,
-            IWindowsImageMetadataReader windowsImageMetadataReader)
+            IWindowsImageMetadataReader windowsImageMetadataReader, IStorage storage)
         {
             this.deployment = deployment;
             this.fileSystem = fileSystem;
 
-            Requirements = new RequirementListViewModel(requirements, windowsImageMetadataReader, fileSystem);
+            Requirements = new RequirementListViewModel(requirements, windowsImageMetadataReader, fileSystem, storage);
 
             Deploy = ReactiveCommand.CreateFromTask(() => ExecuteDeployment(deployer), Requirements.IsValid);
             Deploy.Subscribe(result =>

@@ -15,6 +15,7 @@ using Deployer.Library;
 using Deployer.Wim;
 using Zafiro.Core.FileSystem;
 using Zafiro.Network;
+using Zafiro.Storage.Windows;
 
 namespace Deployer.Gui
 {
@@ -47,6 +48,7 @@ namespace Deployer.Gui
             containerBuilder.RegisterType<XmlDeploymentSerializer>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterType<WindowsImageMetadataReader>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterType<FileSystem>().AsImplementedInterfaces().SingleInstance();
+            containerBuilder.RegisterType<Storage>().AsImplementedInterfaces().SingleInstance();
             containerBuilder.RegisterAssemblyTypes(typeof(ViewModelBase).Assembly).Where(t => t.IsAssignableTo(typeof(ViewModelBase))).AsSelf();
 
             var container = containerBuilder.Build();

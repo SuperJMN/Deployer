@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace Deployer.Gui.ViewModels.Requirements
 {
-    internal class IntRequirementViewModel : RequirementViewModelBase
+    public class IntRequirementViewModel : RequirementViewModelBase
     {
         private int value;
         public IntRequirement Requirement { get; }

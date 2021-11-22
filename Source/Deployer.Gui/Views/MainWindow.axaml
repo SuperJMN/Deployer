@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="900"
         x:Class="Deployer.Gui.Views.MainWindow"
         Icon="/Assets/Icon.png"
-        Width="900"
+        Width="1000"
         Height="900"
         WindowStartupLocation="CenterScreen"
         Title="Deployer">
@@ -16,26 +16,20 @@
 		<design:MainViewModelDesign />
 	</Design.DataContext>
 
-	<Window.Styles>
-		<Style Selector="TextBlock.Error">
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style>
-	</Window.Styles>
-
 	<Grid>
 
 		<DockPanel>
-			<Grid DockPanel.Dock="Top" >
-				<StackPanel Margin="8">
-					<TextBlock FontSize="30" TextAlignment="Center">Deployer</TextBlock>
-					<Image Margin="4" Source="/Assets/Icon.png" Width="64" />
-				</StackPanel>
-				<Button VerticalAlignment="Top" Background="Transparent" Command="{Binding SupportMyWork}" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Right">
-                    <TextBlock VerticalAlignment="Center" Margin="4">Wanna support my work 😍?</TextBlock>
-				</Button>
-			</Grid>
+            <Grid DockPanel.Dock="Top" >
+                <StackPanel Margin="8">
+                    <TextBlock FontSize="35" TextAlignment="Center" FontWeight="Bold">Deployer</TextBlock>
+                    <Image Margin="4" Source="/Assets/Icon.png" Width="64" />
+                </StackPanel>
+                <Button VerticalAlignment="Top" Margin="20" Background="Transparent" Command="{Binding SupportMyWork}" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Right">
+                    <TextBlock VerticalAlignment="Center" Margin="2">Wanna support my work 😍?</TextBlock>
+                </Button>
+            </Grid>
 			<ContentControl Margin="8" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
-			<Button Margin="18" DockPanel.Dock="Bottom" VerticalAlignment="Center" Command="{Binding SelectedDevice.SelectedDeployment.Deploy}" HorizontalAlignment="Center">Deploy</Button>
+			<Button Margin="18" DockPanel.Dock="Bottom" FontSize="18" Padding="10 5 10 5" VerticalAlignment="Center" Command="{Binding SelectedDevice.SelectedDeployment.Deploy}" HorizontalAlignment="Center">Deploy</Button>
 			<views:StepsView />
 		</DockPanel>
 
