@@ -27,6 +27,9 @@ namespace Deployer.Gui.ViewModels.Requirements
             isBusy = RefreshDisks.IsExecuting.ToProperty(this, x => x.IsBusy);
             IsValid = this.WhenAnyValue(x => x.SelectedDisk, x => x.IsUnlocked).Select(model => model.Item1 is not null && model.Item2);
             RefreshDisks.Execute().Subscribe();
+            this.WhenAnyValue(x => x.SelectedDisk)
+                .Where(d => d is not null)
+                .Subscribe(disk => Value = (int) disk.Number);
         }
 
         public bool IsBusy => isBusy.Value;

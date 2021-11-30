@@ -13,7 +13,7 @@ namespace Deployer.Gui.ViewModels.Requirements
             this.disk = disk;
         }
 
-        public uint Number => disk.Number + 1;
+        public uint Number => disk.Number;
         public string FriendlyName => disk.FriendlyName;
         public ByteSize Size => disk.Size;
         public bool IsUsualTarget => Size > ByteSize.FromGigaBytes(1) && Size < ByteSize.FromGigaBytes(200);
