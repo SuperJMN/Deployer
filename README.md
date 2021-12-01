@@ -25,7 +25,7 @@ Please keep reading carefully. All you need is here.
 
 # Download it!
 
-Download the latest version [here](https://github.com/SuperJMN/Deployer/releases/latest)
+Download the latest version [here](https://www.microsoft.com/store/productId/9N53GG0FTQR9)
 
 # Executing the tool
 1. Extract the .zip
