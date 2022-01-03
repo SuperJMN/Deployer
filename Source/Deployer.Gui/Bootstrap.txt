@@ -7,5 +7,5 @@
 //Main
 //{
 //	RemoveDirectory(downloadFolder);
-//	UnzipRoot(GitHub("WOA-Project", "Deployment-Feed"), ".", downloadFolder);
+//	CopyDirectory("E:\Repos\WOA-Project\Deployment-Feed", downloadFolder);
 //}

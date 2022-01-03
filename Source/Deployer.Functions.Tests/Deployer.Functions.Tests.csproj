@@ -6,7 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DumpExtensions" Version="2.0.0" />
 		<PackageReference Include="FluentAssertions" Version="6.2.0" />
 		<PackageReference Include="FluentAssertions.CSharpFunctionalExtensions" Version="1.0.2" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />

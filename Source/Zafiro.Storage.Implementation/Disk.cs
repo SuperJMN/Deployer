@@ -174,20 +174,9 @@ namespace Zafiro.Storage.Windows
 
         public async Task ClearAs(DiskType diskType)
         {
-            if (!PartitionStyle.Equals(DiskType.Raw))
-            {
-                await PowerShellFacade
-                    .ExecuteCommand("Clear-Disk",
-                        ("RemoveData", null),
-                        ("RemoveOEM", null),
-                        ("Confirm", false),
-                        ("Number", Number));
-            }
-
-            await PowerShellFacade
-                .ExecuteCommand("Initialize-Disk",
-                    ("PartitionStyle", diskType.Name.ToUpper()),
-                    ("Number", Number));
+            var script = $"SELECT DISK {Number}\nCLEAN\nCONVERT {diskType.Name}";
+            await PowerShellFacade.ExecuteScript($@"""{script}"" | & diskpart.exe");
+            await Refresh();
         }
 
         public override string ToString()
@@ -198,6 +187,7 @@ namespace Zafiro.Storage.Windows
         public async Task<IPartition> CreateGptPartition(GptType gptType, string gptName, ByteSize size = default)
         {
             using (var context = await GptContextFactory.Create(Number, FileAccess.ReadWrite))
+            
             {
                 if (size == default)
                 {
