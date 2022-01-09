@@ -70,6 +70,11 @@ namespace Zafiro.Storage.Windows.Gpt
 
         public Partition Add(Entry entry)
         {
+            if (currentSector == 0)
+            {
+                currentSector = 4 * bytesPerSector;
+            }
+
             var desiredSize = new GptSegment(currentSector, ToSectors(entry.Size.Bytes));
             var size = calculator.Constraint(desiredSize);
 

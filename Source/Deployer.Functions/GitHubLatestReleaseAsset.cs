@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using Deployer.Functions.Core;
 using Octokit;
+using Serilog;
 
 namespace Deployer.Functions
 {
@@ -31,10 +33,17 @@ namespace Deployer.Functions
                 .Bind(release =>
                 {
                     return release.Assets
-                        .TryFirst(x => string.Equals(x.Name, assetName, StringComparison.OrdinalIgnoreCase))
+                        .TryFirst(asset => Matches(assetName, asset))
                         .Map(a => a.BrowserDownloadUrl)
                         .ToResult(NoMatchingReleaseAssetFound(owner, repo, assetName, release));
                 });
+        }
+
+        private static bool Matches(string assetFilter, ReleaseAsset asset)
+        {
+            var match = Regex.Match(asset.Name, assetFilter);
+            Log.Debug("Matching asset name {Name} against regex {Regex}: Is match?: {Result}", asset.Name, assetFilter, match.Success);
+            return match.Success;
         }
 
         private static string NoMatchingReleaseAssetFound(string owner, string repo, string assetName, Release r)

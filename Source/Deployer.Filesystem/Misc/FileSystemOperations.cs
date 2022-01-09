@@ -101,7 +101,10 @@ namespace Zafiro.Storage.Misc
                         continue;
                     }
 
-                    var subdirectory = destination.CreateSubdirectory(dir.Name);
+                    // TODO: This is a workaround for FileInfo.CreateSubdirectory(...)
+                    // See https://github.com/dotnet/runtime/issues/49284
+                    var subdir = Path.Combine(destination.FullName, dir.Name);
+                    var subdirectory = new DirectoryInfoWrapper(fileSystem, Directory.CreateDirectory(subdir));
                     await CopyDirectory(fileSystem, dir, subdirectory, fileSearchPattern, skipEmptyDirectories, cancellationToken);
                 }
 
