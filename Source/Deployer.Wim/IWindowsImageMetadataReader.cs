@@ -1,10 +1,9 @@
-﻿using System.IO;
-using CSharpFunctionalExtensions;
+﻿using CSharpFunctionalExtensions;
 
 namespace Deployer.Wim
 {
     public interface IWindowsImageMetadataReader
     {
-        Result<XmlWindowsImageMetadata> Load(Stream stream);
+        Result<XmlWindowsImageMetadata> Load(string path);
     }
 }

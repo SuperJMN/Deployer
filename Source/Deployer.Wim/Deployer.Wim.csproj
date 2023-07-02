@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.24.3" />
+    <PackageReference Include="ManagedWimLib" Version="2.5.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
     <PackageReference Include="Zafiro.Core" Version="3.0.4" />
   </ItemGroup>
 
