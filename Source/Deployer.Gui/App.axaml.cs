@@ -4,17 +4,11 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Deployer.Avalonia;
-using Deployer.Compression;
-using Deployer.Functions;
-using Deployer.Functions.Core;
-using Deployer.Functions.Unzip;
 using Deployer.Gui.Services;
 using Deployer.Gui.ViewModels;
 using Deployer.Gui.Views;
 using Deployer.Library;
 using Deployer.Wim;
-using Zafiro.Core.FileSystem;
-using Zafiro.Network;
 using Zafiro.Storage.Windows;
 
 namespace Deployer.Gui

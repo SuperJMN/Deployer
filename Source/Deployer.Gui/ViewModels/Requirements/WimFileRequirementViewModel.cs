@@ -69,19 +69,16 @@ namespace Deployer.Gui.ViewModels.Requirements
             set => this.RaiseAndSetIfChanged(ref selectedImage , value);
         }
 
-        private static IObservable<Result<IList<DiskImageMetadata>>> LoadImage(IWindowsImageMetadataReader windowsImageMetadataReader, IFileSystem fileSystem, string s)
+        private static IObservable<Result<IList<DiskImageMetadata>>> LoadImage(IWindowsImageMetadataReader windowsImageMetadataReader, IFileSystem fileSystem, string path)
         {
-            if (!fileSystem.File.Exists(s))
+            if (!fileSystem.File.Exists(path))
             {
                 return Observable.Return(Result.Failure<IList<DiskImageMetadata>>("The image doesn't exist"));
             }
 
-            return Observable.Using<Result<IList<DiskImageMetadata>>, Stream>(() => fileSystem.File.OpenRead(s),
-                stream =>
-                {
-                    var result = windowsImageMetadataReader.Load(stream).Map(x => x.Images);
-                    return Observable.Return(result);
-                });
+            return Observable
+                .Return(windowsImageMetadataReader.Load(path)
+                    .Map(x => x.Images));
         }
 
         public IEnumerable<DiskImageMetadata> Images => images.Value;
