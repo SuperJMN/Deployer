@@ -110,3 +110,7 @@ In addition to:
 - [Markdown XAML](https://github.com/theunrepentantgeek/Markdown.XAML)
 - [Serilog](https://serilog.net/)
 - [Thomas Galliker](https://www.linkedin.com/in/thomasgalliker/?originalSubdomain=ch) for his great [Value Converters](https://github.com/thomasgalliker/ValueConverters.NET)
+
+This project is [Powered by AvaloniaUI](https://www.avaloniaui.net).
+
+![image](https://github.com/SuperJMN/Deployer/assets/3109851/1752bd42-beb5-43f9-8c27-d0d9a3c79ac9)
