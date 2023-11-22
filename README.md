@@ -34,7 +34,7 @@ Download the latest version [here](https://github.com/SuperJMN/Deployer/releases
 
 # Executing the tool
 1. Extract the .zip
-3. Find Deployer.Gui.exe file
+3. Find Deployer.Desktop.exe file
 4. Run it (you will be prompted for admin rights)
 
 # Show the love 🧡
