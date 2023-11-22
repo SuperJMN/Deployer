@@ -5,53 +5,51 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Console", "WoaDeployer.Console\Deployer.Console.csproj", "{D1C522F0-EEB1-4018-AEF1-CF3AEC96D7C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Functions", "Deployer.Functions\Deployer.Functions.csproj", "{06F82D72-9ECA-43ED-94FA-2C7FA8E53852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Functions", "src\Deployer.Functions\Deployer.Functions.csproj", "{06F82D72-9ECA-43ED-94FA-2C7FA8E53852}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Functions.Tests", "Deployer.Functions.Tests\Deployer.Functions.Tests.csproj", "{3D71C006-BFDE-416D-9458-E70E4C3ED821}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Functions.Tests", "src\Deployer.Functions.Tests\Deployer.Functions.Tests.csproj", "{3D71C006-BFDE-416D-9458-E70E4C3ED821}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Functions.Core", "Deployer.Functions.Core\Deployer.Functions.Core.csproj", "{3737F859-3230-4958-A745-FD537A909E4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Functions.Core", "src\Deployer.Functions.Core\Deployer.Functions.Core.csproj", "{3737F859-3230-4958-A745-FD537A909E4E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer", "Deployer\Deployer.csproj", "{D3C5DDEF-7458-45C3-8368-9FDFFA60F6DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer", "src\Deployer\Deployer.csproj", "{D3C5DDEF-7458-45C3-8368-9FDFFA60F6DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Storage", "Deployer.Filesystem\Zafiro.Storage.csproj", "{34579721-6028-4100-BF72-E257724973B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Storage", "src\Deployer.Filesystem\Zafiro.Storage.csproj", "{34579721-6028-4100-BF72-E257724973B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Compression", "Deployer.Zip\Deployer.Compression.csproj", "{6CA50372-E93C-410A-B6BC-8588F21F4E78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Compression", "src\Deployer.Zip\Deployer.Compression.csproj", "{6CA50372-E93C-410A-B6BC-8588F21F4E78}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Storage.Windows", "Zafiro.Storage.Implementation\Zafiro.Storage.Windows.csproj", "{8B540B58-F769-4FC1-9A7E-26BE9DAC8BDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Storage.Windows", "src\Zafiro.Storage.Implementation\Zafiro.Storage.Windows.csproj", "{8B540B58-F769-4FC1-9A7E-26BE9DAC8BDE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Storage.Windows.Gpt", "Zafiro.Storage.Gpt\Zafiro.Storage.Windows.Gpt.csproj", "{811F8A27-949C-4FF3-8571-88698B8E38E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Storage.Windows.Gpt", "src\Zafiro.Storage.Gpt\Zafiro.Storage.Windows.Gpt.csproj", "{811F8A27-949C-4FF3-8571-88698B8E38E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Tests", "Deployer.Tests\Deployer.Tests.csproj", "{D2B5D8B0-D077-454D-97DB-016FE3528A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Tests", "src\Deployer.Tests\Deployer.Tests.csproj", "{D2B5D8B0-D077-454D-97DB-016FE3528A21}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.System.Windows", "Zafiro.System.Windows\Zafiro.System.Windows.csproj", "{06CA6E79-D5B3-4D8B-A040-3C4D3F8FEFCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.System.Windows", "src\Zafiro.System.Windows\Zafiro.System.Windows.csproj", "{06CA6E79-D5B3-4D8B-A040-3C4D3F8FEFCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.System.Windows.Dism", "Deployer.Dism\Zafiro.System.Windows.Dism.csproj", "{EF5EED3A-FCCB-4E00-975B-61996604913D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.System.Windows.Dism", "src\Deployer.Dism\Zafiro.System.Windows.Dism.csproj", "{EF5EED3A-FCCB-4E00-975B-61996604913D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zafiro", "Zafiro", "{A3088361-BE0F-4CB5-9BB9-6E676B108C5E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zafiro", "src\Zafiro", "{A3088361-BE0F-4CB5-9BB9-6E676B108C5E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Tools.AzureDevOps", "Zafiro.Clients.AzureDevOps\Zafiro.Tools.AzureDevOps.csproj", "{61724E83-BFF6-40E5-ACBC-C0E50479D65D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Tools.AzureDevOps", "src\Zafiro.Clients.AzureDevOps\Zafiro.Tools.AzureDevOps.csproj", "{61724E83-BFF6-40E5-ACBC-C0E50479D65D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Gui", "Deployer.Gui\Deployer.Gui.csproj", "{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Gui", "src\Deployer.Gui\Deployer.Gui.csproj", "{9C79D9C8-9A3E-40E2-BAC9-B87E63116EDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Library", "Deployer.Library\Deployer.Library.csproj", "{6523E8B6-1444-4EAB-9055-B2CBF390A791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Library", "src\Deployer.Library\Deployer.Library.csproj", "{6523E8B6-1444-4EAB-9055-B2CBF390A791}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Library.Generator", "Deployer.Library.Generator\Deployer.Library.Generator.csproj", "{4C372DCE-97E7-435D-9D7D-229DDC44DEE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Library.Generator", "src\Deployer.Library.Generator\Deployer.Library.Generator.csproj", "{4C372DCE-97E7-435D-9D7D-229DDC44DEE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Avalonia", "Deployer.Avalonia\Deployer.Avalonia.csproj", "{27F4D572-EBC1-486C-8866-A44E4B7D1047}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Avalonia", "src\Deployer.Avalonia\Deployer.Avalonia.csproj", "{27F4D572-EBC1-486C-8866-A44E4B7D1047}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Console.Core", "Deployer.Console.Core\Deployer.Console.Core.csproj", "{4E36966B-C972-4165-B63F-DB867B896BAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Console.Core", "src\Deployer.Console.Core\Deployer.Console.Core.csproj", "{4E36966B-C972-4165-B63F-DB867B896BAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{B6F324BD-C3C4-4245-8B3E-6D18D4BCF54B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUI", "GUI", "{1B4E1782-8D6E-4C41-A2F7-BA334C7798DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Console.Tests", "Deployer.Console.Tests\Deployer.Console.Tests.csproj", "{3C35DBA2-6E97-419E-B536-A706A9487D77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Console.Tests", "src\Deployer.Console.Tests\Deployer.Console.Tests.csproj", "{3C35DBA2-6E97-419E-B536-A706A9487D77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Wim", "Deployer.Wim\Deployer.Wim.csproj", "{B694EDFC-EF66-4089-8E92-5DA29054B883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deployer.Wim", "src\Deployer.Wim\Deployer.Wim.csproj", "{B694EDFC-EF66-4089-8E92-5DA29054B883}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Core.Pending", "Zafiro.Core.Pending\Zafiro.Core.Pending.csproj", "{EEDF5FF5-2DF8-47EC-AAB2-50EAB4AEAE77}"
-EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "Deployer.Packaging", "Deployer.Packaging\Deployer.Packaging.wapproj", "{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zafiro.Core.Pending", "src\Zafiro.Core.Pending\Zafiro.Core.Pending.csproj", "{EEDF5FF5-2DF8-47EC-AAB2-50EAB4AEAE77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -487,36 +485,6 @@ Global
 		{EEDF5FF5-2DF8-47EC-AAB2-50EAB4AEAE77}.Release|x64.Build.0 = Release|Any CPU
 		{EEDF5FF5-2DF8-47EC-AAB2-50EAB4AEAE77}.Release|x86.ActiveCfg = Release|Any CPU
 		{EEDF5FF5-2DF8-47EC-AAB2-50EAB4AEAE77}.Release|x86.Build.0 = Release|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|ARM.ActiveCfg = Debug|ARM
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|ARM.Build.0 = Debug|ARM
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|ARM.Deploy.0 = Debug|ARM
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|ARM64.Build.0 = Debug|ARM64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|ARM64.Deploy.0 = Debug|ARM64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|x64.ActiveCfg = Debug|x64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|x64.Build.0 = Debug|x64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|x64.Deploy.0 = Debug|x64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|x86.ActiveCfg = Debug|x86
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|x86.Build.0 = Debug|x86
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Debug|x86.Deploy.0 = Debug|x86
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|ARM.ActiveCfg = Release|ARM
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|ARM.Build.0 = Release|ARM
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|ARM.Deploy.0 = Release|ARM
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|ARM64.ActiveCfg = Release|ARM64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|ARM64.Build.0 = Release|ARM64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|ARM64.Deploy.0 = Release|ARM64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|x64.ActiveCfg = Release|x64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|x64.Build.0 = Release|x64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|x64.Deploy.0 = Release|x64
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|x86.ActiveCfg = Release|x86
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|x86.Build.0 = Release|x86
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -534,7 +502,6 @@ Global
 		{4E36966B-C972-4165-B63F-DB867B896BAB} = {B6F324BD-C3C4-4245-8B3E-6D18D4BCF54B}
 		{3C35DBA2-6E97-419E-B536-A706A9487D77} = {B6F324BD-C3C4-4245-8B3E-6D18D4BCF54B}
 		{EEDF5FF5-2DF8-47EC-AAB2-50EAB4AEAE77} = {A3088361-BE0F-4CB5-9BB9-6E676B108C5E}
-		{5FFB95F3-3C0E-49A1-BF6F-38F92D50E016} = {1B4E1782-8D6E-4C41-A2F7-BA334C7798DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59B7C26F-4ABF-452F-87B3-A93C4FE587F6}
