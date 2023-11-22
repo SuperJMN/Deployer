@@ -1,18 +1,23 @@
-﻿![Xzibit](Docs/xzibit.png)
+# Deployer formerly WOA Deployer
+ ![Xzibit](Docs/xzibit.png)
 
-# OK, what's this?
+## OK, what's this?
 
 "Deploy your deployment while you deploy"
 
 > Deployer is a generic tool to automate deployments
 
-# How is this useful?
+Take a look to this sexy screenshot
+
+![image](https://github.com/SuperJMN/Deployer/assets/3109851/6af7de3a-6989-4f21-aee2-e030694101c5)
+
+## How is this useful?
 
 This allows you to install **Windows on ARM** into esoteric devices like the Lumia 950 phones or SOCs like Raspberry Pi.
 
 Although Deployer 3 has been reimagined and redesigned to handle almost every kind of deployment you might think of.
 
-# **Super easy to use. No-hassle.**
+## **Super easy to use. No-hassle.**
 
 Please keep reading carefully. All you need is here.
 
@@ -25,7 +30,7 @@ Please keep reading carefully. All you need is here.
 
 # Download it!
 
-Download the latest version [here](https://www.microsoft.com/store/productId/9N53GG0FTQR9)
+Download the latest version [here](https://github.com/SuperJMN/Deployer/releases)
 
 # Executing the tool
 1. Extract the .zip
